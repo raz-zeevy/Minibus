@@ -8,6 +8,7 @@ import secrets, os
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex()
+
 is_prod = os.environ.get('IS_HEROKU', None)
 
 if is_prod:
@@ -28,7 +29,11 @@ def if_logged_in(f):
 
 @app.before_first_request
 def initialize_database():
-    Database.initialize(MONGO_URI)
+    try:
+        Database.initialize(MONGO_URI)
+    except Exception as e:
+        print(e)
+        return "FAILED TO CONNECT"
 
 @app.route('/', methods=['POST','GET'])
 @if_logged_in
