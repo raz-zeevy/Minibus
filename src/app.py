@@ -4,10 +4,17 @@ from flask import Flask, render_template, redirect, flash
 from flask import session, request, url_for
 from models.profile import Profile
 from common.db import Database
-import secrets
+import env.config as config
+import secrets, os
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex()
+is_prod = os.environ.get('IS_HEROKU', None)
+
+if is_prod:
+    MONGO_URI = os.environ.get('MONGO_URI', None)
+else:
+    MONGO_URI = config.MONGO_URI
 
 def if_logged_in(f):
     def wrap(*args, **kwargs):
@@ -21,7 +28,7 @@ def if_logged_in(f):
 
 @app.before_first_request
 def initialize_database():
-    Database.initialize()
+    Database.initialize(MONGO_URI)
 
 @app.route('/', methods=['POST','GET'])
 @if_logged_in
@@ -102,4 +109,7 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if is_prod:
+        pass
+    else:
+        app.run(debug=True)

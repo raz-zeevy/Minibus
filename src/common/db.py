@@ -1,14 +1,12 @@
 import pymongo
 
-password = 'Watermarking2'
-username = 'minibusAdmin'
 
 class Database(object):
-    URI = f"mongodb://{username}:{password}@belgart-cloud-shard-00-00-rzjda.mongodb.net:27017,belgart-cloud-shard-00-01-rzjda.mongodb.net:27017,belgart-cloud-shard-00-02-rzjda.mongodb.net:27017/test?ssl=true&replicaSet=belgart-cloud-shard-0&authSource=admin&retryWrites=true&w=majority"
     DATABASE = None
 
     @staticmethod
-    def initialize():
+    def initialize(URI):
+        Database.URI = URI
         client = pymongo.MongoClient(Database.URI)
         Database.DATABASE = client['minibus']
 
