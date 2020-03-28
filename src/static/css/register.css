@@ -1,0 +1,44 @@
+input[type="date"]{
+  text-align: center;
+  padding:0;
+}
+
+
+button[type="button"]{
+  margin-right: 2%;
+}
+
+input.invalid {
+  background-color: #ffdddd;
+}
+
+h3{
+text-align: center;
+}
+
+.tab {
+  display: none;
+}
+
+.col{
+  margin-top:1%;
+}
+
+.step {
+  height: 26px;
+  width: 26px;
+  margin: 0 4px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.finish {
+  background-color: #17a2b8;
+}

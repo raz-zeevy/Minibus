@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block head %}
+  <title>{{profile.full_name}}</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/form.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="form text-center">
+  <img src="{{url_for('static',filename=profile.image_location)}}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
+  <h1 class="display-4 text-center">{{profile.full_name}}</h1>
+  <div class="tab">
+    <h3 class="cool-text">פרטי יצירת קשר</h3>
+    <div class="row">
+      <div class="col">
+        <span class="small">ישוב</span>
+        <input id="residence" type="text" placeholder="ישוב" class="form-control" name="residence">
+      </div>
+        <div class="col">
+        <span class="small">תאריך לידה</span>
+        <input type="date" placeholder="תאריך לידה:" class="form-control" min="1980" max="2002" step="1" name="date_of_birth">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+          <span class="small">מספר טלפון</span>
+          <input type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
+      </div>
+      <div class="col-6">
+          <span class="small">אימייל</span>
+          <input type="text" class="form-control crucial-input email" placeholder="" name="email">
+      </div>
+    </div>
+  </div>
+  <div class="tab">
+    <h3 class="cool-text">השכלה ותעסוקה</h3>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="תעודות מקצועיות" name="education">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="עוד" name="education">
+      </div>
+    </div>
+  </div>
+
+  <div class="tab">
+    <h3 class="cool-text">מסגרות נוספות</h3>
+    <div class="row">
+      <div class="col">
+        <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
+        <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">שירות צבאי:</label>
+        <input type="text" class="form-control" placeholder="" name="army_service">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">מסגרות נוספות:</label>
+        <input type="text" class="form-control" placeholder="" name="pre_army">
+      </div>
+    </div>
+  </div>
+
+  <div class="tab">
+      <h3 class="cool-text">קצת על {{profile.full_name}}</h3>
+    <div class="row">
+      <div class="col">
+        <label for="">:תחביבים ותחומי עניין</label>
+        <input type="text" class="form-control" placeholder="כל מה שאתם אוהבים לעשות ויש לכם בו איזשהו ניסיון" name="hobbies">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">מקורות השראה</label>
+        <input type="text" class="form-control" placeholder="עובדות לא חשובות בפייסבוק, הרצאות טד של ג'ון לה קרה" name="interes">
+      </div>
+    </div>
+    </div>
+
+  <div class="tab">
+    <div class="row">
+      <div class="col">
+        <label for="">מוזמנים להתייעץ איתי לגבי...</label>
+        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">דרכים נוספות שאפשר להעזר בי:</label>
+        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+      </div>
+    </div>
+  </div>
+  <small>{{profile.hashtags}}</small>
+</div>
+</div>
+
+<script type="text/javascript">
+  var profile = {{profile|safe}};
+  var tabs = document.querySelectorAll(".tab");
+  for (var i=0; i < tabs.length; ++i){
+    tab = tabs[i]
+    text_inputs = $(tab).find('input')
+    var keep_tab = false;
+    for (var j=0; j < text_inputs.length; ++j){
+      if (profile[text_inputs[j].name] == ""){
+        text_inputs[j].style.display = "none";
+      }
+      else{
+      text_inputs[j].disabled = true;
+      text_inputs[j].value = profile[text_inputs[j].name]
+      keep_tab = true
+    }}
+    if (!keep_tab){
+      tabs[i].style.display = "none";
+    }}
+</script>
+{% endblock %}

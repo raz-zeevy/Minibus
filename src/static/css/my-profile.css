@@ -1,0 +1,25 @@
+.container{
+
+}
+.login-form{
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 60px 30px;
+  transition: 0.5s;
+}
+
+.form{
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 60px 30px;
+  transition: 0.5s;
+}
+
+.form-control{
+  width: 100%;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 25px;
+}

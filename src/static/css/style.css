@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Bellefair&display=swap&subset=hebrew');
+
+body{
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  background-image:
+    linear-gradient(rgba(255, 255, 255,0.9), rgba(23, 162, 184, 0.2)),
+    url(../images/bg-white.png);
+  /* background-repeat:repeat; */
+  /* background-size: 100% 100%; */
+  background-size: cover;
+  background-position: center;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  /* background-image:
+    linear-gradient(rgba(255, 255, 255,0.9), rgba(23, 162, 184, 0.2)),
+    url(../images/bg-white.png);
+  background-repeat:repeat;
+  background-size: 100% 600%;
+  background-position: center; */
+}
+section {
+  width: 100%;
+  height: 100vh;
+}
+.center{
+    text-align: center;
+}
+.container{
+  padding-top:17%;
+  padding-bottom:17%;
+}
+#navbar-icon{
+  font-size: 30px;
+  padding:0 6%;
+}
+#searchBox{
+  text-align: center
+}
+input{
+  text-align: right;
+}
+.cool-text {
+  font-family: 'Bellefair', serif;
+  size:46px;
+}
+.navbarLogo{
+  position:inherit;
+  top: 5px;
+  mix-blend-mode: multiply;
+  height:35px;
+  width:auto;
+}
+.active{
+  color:darkgrey;
+}
+.nav-link{
+  color:white
+}
+.nav-link:hover{
+  color:dimgray
+}

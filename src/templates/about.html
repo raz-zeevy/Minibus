@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>עלינו</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/about.css')}}">
+{% endblock %}
+
+{% block content %}
+<body>
+<div class="container">
+  <div class="center">
+    <div class="about-container text-center">
+        <img class="tavor-logo rounded mx-auto" src="{{url_for('static',filename='images/tavor-minibus-logo.png')}}" alt="minibus-logo">
+        <div class="about-box">
+        </div>
+    </div>
+    <div id="about-vision">
+    <ul class="about-vision" style="list-style-type: none;">
+        <li class="one-third">
+          <div class="about-vision-title">
+            <img src="https://tavor.org.il/wp-content/uploads/2016/03/icon-about-vision.png" />
+            <h3>חזון</h3>
+            <div class="line"></div>
+          </div>
+          <div class="about-vision-content">
+            <p>מנהיגות המונעת מתוך תחושת שליחות ומחויבות לשגשוגה של הדמוקרטיה הישראלית ולהתהוותה כמרכזו הרוחני והתרבותי של העם היהודי.</p>						</div>
+        </li>
+        <li class="one-third">
+          <div class="about-vision-title">
+            <img src="https://tavor.org.il/wp-content/uploads/2016/03/icon-about-core.png" />
+            <h3>ייעוד</h3>
+            <div class="line"></div>
+          </div>
+          <div class="about-vision-content">
+            <p>הכשרת צעירים מעולים למנהיגות חברתית ולאומית שתוכל לאתגרים העומדים לפתחם של מדינת ישראל והעם היהודי.</p>						</div>
+        </li>
+        <li class="one-third">
+          <div class="about-vision-title">
+            <img src="https://tavor.org.il/wp-content/uploads/2016/03/core-icon.png" />
+            <h3>ערכים מובילים</h3>
+            <div class="line"></div>
+          </div>
+          <div class="about-vision-content">
+            <p>מצויינות, שמחה ואהבת ישראל</p>						</div>
+        </li>
+                      <div class="clear"></div>
+    </ul>
+    <div class="about-box cool-text">
+      <h3 class="mb-0"><cite>"הנה ציטוט מאת מישהו שמדבר על רשתיות או על חינך או על מנהיגות"<cite></h3>
+      <h4 class="">-מישהו מפורסם ב<cite title="Source Title">ספר כלשהו</cite></h4>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
