@@ -4,7 +4,6 @@ from flask import Flask, render_template, redirect, flash
 from flask import session, request, url_for
 from models.profile import Profile
 from common.db import Database
-import env.config as config
 import secrets, os
 
 app = Flask(__name__)
@@ -14,6 +13,7 @@ is_prod = os.environ.get('IS_HEROKU', None)
 if is_prod:
     MONGO_URI = os.environ.get('MONGO_URI', None)
 else:
+    import env.config as config
     MONGO_URI = config.MONGO_URI
 
 def if_logged_in(f):
