@@ -26,7 +26,7 @@ def initialize_database():
 @app.route('/', methods=['POST','GET'])
 @if_logged_in
 def index():
-    return render_template('search.html')
+     return redirect(url_for('search'))
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -43,13 +43,17 @@ def login():
 
     return render_template('login.html', error=error)
 
-@app.route('/register', methods=['POST','GET'])
+@app.route('/register')
 def register():
+    return render_template('register.html')
+
+@app.route('/register/submit', methods=['POST'])
+def register_submit():
     if request.method == 'POST':
         user_data = request.form.to_dict()
         if Profile.register(user_data):
-            return render_template('search.html')
-    return render_template('register.html')
+           return redirect(url_for('search'))
+    return 'Error in Registerarion Form'
 
 @app.route('/search', methods=['GET'])
 @if_logged_in
@@ -97,5 +101,5 @@ def logout():
     Profile.logout()
     return redirect(url_for('login'))
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

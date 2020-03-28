@@ -1,245 +1,241 @@
-{% extends "base.html" %}
-{% block head %}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/form.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}">
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/form.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}"> {% endblock %} {% block content %}
 <div class="container">
-<div class="form text-right">
-<form id="regForm" action="" METHOD="POST">
-  <h1 class="cool-text text-center">הרשמה לרשת בוגרים</h1>
-  <hr></hr>
-  <!-- One "tab" for each step in the form: -->
-  <div class="tab">
-    <h3 class="cool-text">פרטי התחברות</h3>
-    <div class="row">
-      <div class="col-sm-12 col-md-4">
-        <span class="small">אימייל</span>
-        <input type="text" class="form-control crucial-input" placeholder="" name="email">
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <span class="small">קוד כניסה (ספרות בלבד)</span>
-        <input type="tel" class="form-control crucial-input" placeholder="" name="password">
-      </div>
-    </div>
-    <h3 class="cool-text">פרטים אישיים</h3>
-    <div class="row">
-      <div class="col-sm-12 col-md-4">
-        <span class="small">שם מלא</span>
-        <input type="text"class="form-control crucial-input" placeholder="" name="full_name">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-          <span class="small">מספר טלפון</span>
-          <input type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
-      </div>
-      <div class="col-6">
-        <span class="small">תאריך לידה</span>
-        <input type="date" placeholder="תאריך לידה:" class="form-control crucial-input" min="1980" max="2002" step="1" name="date_of_birth">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-          <span class="small">ישוב</span>
-          <input type="text" placeholder="ישוב" class="form-control crucial-input" name="residence">
-      </div>
-      <div class="col-6">
-        <span class="small">מגדר</span>
-        <select type="text" class="form-control crucial-input" name="gender">
+    <div class="form text-right">
+        <form id="regForm" action="/register/submit" METHOD="POST">
+            <h1 class="cool-text text-center">הרשמה לרשת בוגרים</h1>
+            <hr>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+                <h3 class="cool-text">פרטי התחברות</h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <span class="small">אימייל</span>
+                        <input type="text" class="form-control crucial-input" placeholder="" name="email">
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <span class="small">קוד כניסה (ספרות בלבד)</span>
+                        <input type="tel" class="form-control crucial-input" placeholder="" name="password">
+                    </div>
+                </div>
+                <h3 class="cool-text">פרטים אישיים</h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <span class="small">שם מלא</span>
+                        <input type="text" class="form-control crucial-input" placeholder="" name="full_name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="small">מספר טלפון</span>
+                        <input type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
+                    </div>
+                    <div class="col-6">
+                        <span class="small">תאריך לידה</span>
+                        <input type="date" placeholder="תאריך לידה:" class="form-control crucial-input" min="1980" max="2002" step="1" name="date_of_birth">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="small">ישוב</span>
+                        <input type="text" placeholder="ישוב" class="form-control crucial-input" name="residence">
+                    </div>
+                    <div class="col-6">
+                        <span class="small">מגדר</span>
+                        <select type="text" class="form-control crucial-input" name="gender">
           <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
         </select>
-      </div>
-    </div>
-  </div>
+                    </div>
+                </div>
+            </div>
 
-  <div class="tab text-right">
-    <h3 class="cool-text">מסגרות</h3>
-    <span class="small">כדאי לציין רמת מעורבות ואם שמרתי על קשר</span>
-    <div class="row">
-      <div class="col">
-        <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
-        <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="">שירות צבאי:</label>
-        <input type="text" class="form-control" placeholder="" name="army_service">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="">מסגרות נוספות:</label>
-        <input type="text" class="form-control" placeholder="" name="pre_army">
-      </div>
-    </div>
-  </div>
+            <div class="tab text-right">
+                <h3 class="cool-text">מסגרות</h3>
+                <span class="small">כדאי לציין רמת מעורבות ואם שמרתי על קשר</span>
+                <div class="row">
+                    <div class="col">
+                        <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
+                        <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">שירות צבאי:</label>
+                        <input type="text" class="form-control" placeholder="" name="army_service">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">מסגרות נוספות:</label>
+                        <input type="text" class="form-control" placeholder="" name="pre_army">
+                    </div>
+                </div>
+            </div>
 
-  <div class="tab">
-    <h3 class="cool-text">השכלה ותעסוקה</h3>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="תעודות מקצועיות" name="education">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="עוד" name="education">
-      </div>
-    </div>
-  </div>
+            <div class="tab">
+                <h3 class="cool-text">השכלה ותעסוקה</h3>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="תעודות מקצועיות" name="education">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="עוד" name="education">
+                    </div>
+                </div>
+            </div>
 
-  <div class="tab text-right">
-      <h3 class="cool-text">קצת על עצמי</h3>
-    <div class="row">
-      <div class="col">
-        <label for="">:תחביבים ותחומי עניין</label>
-        <input type="text" class="form-control" placeholder="כל מה שאתם אוהבים לעשות ויש לכם בו איזשהו ניסיון" name="hobbies">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="">:דברים שנותנים לי השראה</label>
-        <input type="text" class="form-control" placeholder="עובדות לא חשובות בפייסבוק, הרצאות טד של ג'ון לה קרה" name="interes">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="">#מילות_מפתח</label>
-        <input type="text" class="form-control" placeholder="#צופים #כושר #ספרדית" name="hashtags">
-        <span class="small">תגיות אלו יסמנו מתי להקפיץ את הפרופיל שלכם</span>
-      </div>
-    </div>
-  </div>
+            <div class="tab text-right">
+                <h3 class="cool-text">קצת על עצמי</h3>
+                <div class="row">
+                    <div class="col">
+                        <label for="">:תחביבים ותחומי עניין</label>
+                        <input type="text" class="form-control" placeholder="כל מה שאתם אוהבים לעשות ויש לכם בו איזשהו ניסיון" name="hobbies">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">:דברים שנותנים לי השראה</label>
+                        <input type="text" class="form-control" placeholder="עובדות לא חשובות בפייסבוק, הרצאות טד של ג'ון לה קרה" name="interes">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">#מילות_מפתח</label>
+                        <input type="text" class="form-control" placeholder="#צופים #כושר #ספרדית" name="hashtags">
+                        <span class="small">תגיות אלו יסמנו מתי להקפיץ את הפרופיל שלכם</span>
+                    </div>
+                </div>
+            </div>
 
-  <div class="tab">
-    <h3 class="cool-text">איך אוכל לעזור?</h3>
-    <div class="row">
-      <div class="col">
-        <label for="">מוזמנים להתייעץ איתי לגבי...</label>
-        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="">דרכים נוספות שאפשר להעזר בי:</label>
-        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
-      </div>
-    </div>
-  </div>
-  <button class="btn btn-dark" type="button" id="prevBtn" onclick="nextPrev(-1)">הקודם</button>
-  <button class="btn btn-info" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
-    <div class="text-center" id="form-sent" style="display:none;">
-      <h2>הטופס נשלח בהצלחה</h2>
-      <p class="text-muted">מיד תועבר לדף הראשי</p>
-    </div>
-  <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-  </div>
+            <div class="tab">
+                <h3 class="cool-text">איך אוכל לעזור?</h3>
+                <div class="row">
+                    <div class="col">
+                        <label for="">מוזמנים להתייעץ איתי לגבי...</label>
+                        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">דרכים נוספות שאפשר להעזר בי:</label>
+                        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-dark" type="button" id="prevBtn" onclick="nextPrev(-1)">הקודם</button>
+            <button class="btn btn-info" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
+            <div class="text-center" id="form-sent" style="display:none;">
+                <h2>הטופס נשלח בהצלחה</h2>
+                <p class="text-muted">מיד תועבר לדף הראשי</p>
+            </div>
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
 
-  </form>
-  </div>
+        </form>
+    </div>
 </div>
 <script type="text/javascript">
-  var currentTab = 0; // Current tab is set to be the first tab (0)
-  showTab(currentTab); // Display the current tab
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
 
-  function showTab(n) {
-    // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    // ... and fix the Previous/Next buttons:
-    if (n == 0) {
-      document.getElementById("prevBtn").style.display = "none";
-    } else {
-      document.getElementById("prevBtn").style.display = "inline";
+    function showTab(n) {
+        // This function will display the specified tab of the form ...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        // ... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "שלח";
+            document.getElementById("nextBtn").className = "btn btn-info";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "הבא";
+            document.getElementById("nextBtn").className = "btn btn-outline-info";
+        }
+        // ... and run a function that displays the correct step indicator:
+        fixStepIndicator(n)
     }
-    if (n == (x.length - 1)) {
-      document.getElementById("nextBtn").innerHTML = "שלח";
-      document.getElementById("nextBtn").className  = "btn btn-info";
-    } else {
-      document.getElementById("nextBtn").innerHTML = "הבא";
-      document.getElementById("nextBtn").className  = "btn btn-outline-info";
-    }
-    // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
-  }
 
-  function nextPrev(n) {
-    // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-      //...the form gets submitted:
-      document.getElementById("prevBtn").style.display = "none";
-      document.getElementById("nextBtn").style.display = "none";
-      document.getElementById("regForm").submit();
-      document.getElementById("form-sent").style.display = "inline";
-      return false;
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form... :
+        if (currentTab >= x.length) {
+            //...the form gets submitted:
+            document.getElementById("prevBtn").style.display = "none";
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("regForm").submit();
+            document.getElementById("form-sent").style.display = "inline";
+            return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
     }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
-  }
 
-  function validateForm() {
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByClassName("2crucial-input");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-      // If a field is empty...
-      if (y[i].value == "") {
-        // add an "invalid" class to the field:
-        y[i].className += " invalid";
-        // and set the current valid status to false:
-        valid = false;
-      }
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByClassName("2crucial-input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false:
+                valid = false;
+            }
+        }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
     }
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-      document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid; // return the valid status
-  }
 
-  function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-      x[i].className = x[i].className.replace(" active", "");
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class to the current step:
+        x[n].className += " active";
     }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
-  }
 </script>
 {% endblock %}
