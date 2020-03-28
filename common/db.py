@@ -1,6 +1,5 @@
 import pymongo
 
-
 class Database(object):
     DATABASE = None
 
@@ -51,4 +50,4 @@ class Database(object):
 
 if __name__ == '__main__':
     Database.initialize()
-    Database.update('profiles',{},{'phone_number' : '0544663407'})
+    print(Database.find_one('profiles',{}))
