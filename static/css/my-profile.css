@@ -1,25 +1,51 @@
-.container{
-
-}
-.login-form{
-  width: 100%;
-  position: relative;
-  box-sizing: border-box;
-  padding: 60px 30px;
-  transition: 0.5s;
-}
-
-.form{
-  width: 100%;
-  position: relative;
-  box-sizing: border-box;
-  padding: 60px 30px;
-  transition: 0.5s;
+@keyframes gradient {
+  0% {
+      background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 15%, white 100%);
+  }
+  16% {
+    background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 30%, white 100%);
+  }
+  32% {
+      background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 45%, white 100%);
+  }
+  50% {
+      background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 60%, white 100%);
+  }
+  77% {
+      background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 75%, white 100%);
+  }
+  83% {
+    background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 90%, white 100%);
+  }
+  100% {
+      background: radial-gradient(circle at center, #d1d1d1 0%, #d1d1d1 100%, white 100%)
+  }
 }
 
 .form-control{
-  width: 100%;
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  border-radius: 25px;
+  margin-bottom: 5px;
+}
+
+#more-options{
+  display:none;
+}
+
+.more-options{
+  padding-inline-start: 0;
+  -webkit-box-shadow: -2px 5px 13px -1px rgba(0,0,0,0.36);
+-moz-box-shadow: -2px 5px 13px -1px rgba(0,0,0,0.36);
+box-shadow: -2px 5px 13px -1px rgba(0,0,0,0.36);
+background-color: #ffffff;
+}
+
+.more-option{
+  padding: 5px;
+  padding-left:15px;
+  border:none;
+  background-color: transparent;
+}
+
+.more-option:focus{
+  animation: gradient 100ms;
+  background-color: #d1d1d1;
 }
