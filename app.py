@@ -84,7 +84,7 @@ def search():
                     pass
             if search_query in user_string:
                 matched_profiles.append(profile)
-
+    matched_profiles = profiles if matched_profiles == [] else matched_profiles
     search_results = [profile.json() for profile in matched_profiles]
     return render_template('search.html', title="search", users=search_results)
 

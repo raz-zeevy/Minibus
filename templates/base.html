@@ -18,7 +18,7 @@
         {% endfor %}
     </ul>
     {% endif %} {% endwith %}
-    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info" style="padding-left:12px">
         </button>
         <a class="navbar-brand" href="/search">
             <img class="navbarLogo" src="static/images/minibus-logo.jpg" alt="">
@@ -46,13 +46,13 @@
 <nav class="navbar fixed-bottom bg-info">
     <ul class="nav mx-auto" style="padding-inline-start:0px;">
         <li class="nav-item active" id="navbar-icon">
-            <a class="nav-link fas fa-search{% if title == 'search' %} disabled {% endif %}" href="/search"></a>
+            <a class="nav-link fa fa-address-card {% if title=='my-profile' %} disabled {% endif %}" href="/my-profile" active><span style="display: block;">פרופיל</span></a>
         </li>
         <li class="nav-item active" id="navbar-icon">
-            <a class="nav-link fa fa-address-card {% if title=='my-profile' %} disabled {% endif %}" href="/my-profile" active></a>
+            <a style="display:block" class="nav-link fas fa-search{% if title == 'search' %} disabled {% endif %}" href="/search"><span style="display: block;">חיפוש</span></a>
         </li>
         <li class="nav-item" id="navbar-icon">
-            <a class="nav-link fa fa-info-circle {% if title == 'about' %} disabled {% endif %}" href="/about"></a>
+            <a class="nav-link fa fa-info-circle {% if title == 'about' %} disabled {% endif %}" href="/about"><span style="display: block;">אודות</span></a>
         </li>
     </ul>
 </nav>

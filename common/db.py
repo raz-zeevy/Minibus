@@ -1,4 +1,5 @@
 import pymongo
+import os
 
 class Database(object):
     DATABASE = None
@@ -49,5 +50,4 @@ class Database(object):
         return profiles_data
 
 if __name__ == '__main__':
-    Database.initialize()
-    print(Database.find_one('profiles',{}))
+    pass

@@ -1,63 +1,105 @@
-@import url('https://fonts.googleapis.com/css?family=Bellefair&display=swap&subset=hebrew');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Bellefair&display=swap');
+@font-face {
+    font-family: 'Assistant-light';
+    src: url('/static/fonts/font-2/assistant-light-webfont.woff') format('woff');
+}
 
-body{
-  margin: 0;
-  padding: 0;
-  direction: rtl;
-  background-image:
-    linear-gradient(rgba(255, 255, 255,0.9), rgba(23, 162, 184, 0.2)),
-    url(../images/bg-white.png);
-  /* background-repeat:repeat; */
-  /* background-size: 100% 100%; */
-  background-size: cover;
-  background-position: center;
-  background-repeat:no-repeat;
-  background-attachment: fixed;
-  /* background-image:
-    linear-gradient(rgba(255, 255, 255,0.9), rgba(23, 162, 184, 0.2)),
-    url(../images/bg-white.png);
-  background-repeat:repeat;
-  background-size: 100% 600%;
-  background-position: center; */
+@keyframes gradient {
+    0% {
+        background: radial-gradient(circle at center, rgba(255, 255, 255, .4) 0%, #17a2b8 0%, #17a2b8 100%);
+    }
+    25% {
+        background: radial-gradient(circle at center, rgba(255, 255, 255, .4) 24%, #17a2b8 20%, #17a2b8 100%);
+    }
+    50% {
+        background: radial-gradient(circle at center, rgba(255, 255, 255, .4) 49%, #17a2b8 40%, #17a2b8 100%);
+    }
+    75% {
+        background: radial-gradient(circle at center, rgba(255, 255, 255, .4) 74%, #17a2b8 60%, #17a2b8 100%);
+    }
+    100% {
+        color: #fff;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, .4) 99%, #fff 80%, #fff 100%);
+    }
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(23, 162, 184, 0.2)), url(../images/bg-white.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 section {
-  width: 100%;
-  height: 100vh;
+    width: 100%;
+    height: 100vh;
 }
-.center{
+
+.center {
     text-align: center;
 }
-.container{
-  padding-top:17%;
-  padding-bottom:17%;
+
+.container {
+    padding-top: 17%;
+    padding-bottom: 17%;
 }
-#navbar-icon{
-  font-size: 30px;
-  padding:0 6%;
+
+.navbar {
+    padding: 0;
 }
-#searchBox{
-  text-align: center
+
+#navbar-icon {
+    font-size: 30px;
+    padding: 0 6%;
 }
-input{
-  text-align: right;
+
+#searchBox {
+    text-align: center
 }
+
+input {
+    text-align: right;
+}
+
 .cool-text {
-  font-family: 'Bellefair', serif;
-  size:46px;
+    font-family: 'Bellefair', serif;
+    size: 46px;
 }
-.navbarLogo{
-  position:inherit;
-  top: 5px;
-  mix-blend-mode: multiply;
-  height:35px;
-  width:auto;
+
+.navbarLogo {
+    position: inherit;
+    top: 5px;
+    mix-blend-mode: multiply;
+    height: 35px;
+    width: auto;
 }
-.active{
-  color:darkgrey;
+
+.active {
+    color: darkgrey;
 }
-.nav-link{
-  color:white
+
+.nav-link {
+    color: white
 }
-.nav-link:hover{
-  color:dimgray
+
+.nav-link span {
+    margin-top: 4px;
+    font-family: 'Assistant', sans-serif;
+    font-size: 12px;
+}
+
+.nav-link:hover {
+    color: dimgray
+}
+
+.nav-link:active {
+    /* set time duration to your needs */
+    animation: gradient 170ms;
+    /* background: #7a7a7a; */
+    /* color: #fff; */
+    box-shadow: none;
 }
