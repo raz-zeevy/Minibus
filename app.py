@@ -50,7 +50,7 @@ def login():
             Profile.login(email)
             return redirect('search')
         else:
-            error = 'Invalid credentials. Try again'
+            error = 'פרטי התחברות לא תקינים, נסה שוב'
             return render_template('login.html', error=error)
 
     return render_template('login.html', error=error)

@@ -1,9 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Bellefair&display=swap');
-@font-face {
-    font-family: 'Assistant-light';
-    src: url('/static/fonts/font-2/assistant-light-webfont.woff') format('woff');
-}
-
 @keyframes gradient {
     0% {
         background: radial-gradient(circle at center, rgba(255, 255, 255, .4) 0%, #17a2b8 0%, #17a2b8 100%);
