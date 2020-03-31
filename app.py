@@ -17,6 +17,26 @@ else:
     import env.config as config
     MONGO_URI = config.MONGO_URI
 
+def parse_form(form_data):
+    user_data = form_data
+    print("1: ",user_data)
+    for key in user_data:
+        try:
+            if isinstance(user_data[key],list):
+                if len(user_data[key]) < 2:
+                    user_data[key] = user_data[key][0]
+                else:
+                    to_keep = False
+                    for item in user_data[key]:
+                        if len(item) > 0:
+                            to_keep = True
+                    if not to_keep:
+                        user_data[key] = None
+        except:
+            pass
+    print("2: ",user_data)
+    return user_data
+
 def if_logged_in(f):
     def wrap(*args, **kwargs):
         if session.get('email') is not None:
@@ -44,7 +64,7 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-        email = request.form.get('email')
+        email = request.form.get('email').lower()
         password = request.form.get('password')
         if Profile.login_valid(email, password):
             Profile.login(email)
@@ -62,7 +82,9 @@ def register():
 @app.route('/register/submit', methods=['POST'])
 def register_submit():
     if request.method == 'POST':
-        user_data = request.form.to_dict()
+        user_data = request.form.to_dict(flat=False)
+        user_data = parse_form(user_data)
+        print(user_data)            
         if Profile.register(user_data):
            return redirect(url_for('search'))
     return 'Error in Registerarion Form'
@@ -78,10 +100,12 @@ def search():
         for profile in profiles:
             user_string = ''
             for value in profile.json().values():
-                try:
+                if isinstance(value,list):
+                    user_string+=','.join(value)
+                elif isinstance(value,(str,int,float)):
                     user_string+=str(value)
-                except:
-                    pass
+                else:
+                    print("I wont try to search",value)
             if search_query in user_string:
                 matched_profiles.append(profile)
     matched_profiles = profiles if matched_profiles == [] else matched_profiles
@@ -98,6 +122,15 @@ def about():
 def my_profile():
     profile = Profile.from_email(session['email'])
     return render_template('my-profile.html', profile=profile, title="my-profile")
+
+@app.route('/my-profile/update', methods=['POST'])
+@if_logged_in
+def update_profile():
+    if request.method == 'POST':
+        user_data = request.form.to_dict(flat=False)
+        user_data = parse_form(user_data)
+        Profile.update(user_data, session['email'])
+    return my_profile()
 
 @app.route('/user-profile/', methods=["GET"])
 @if_logged_in

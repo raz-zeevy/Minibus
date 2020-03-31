@@ -2,6 +2,11 @@
   width: 100%;
 }
 
+.col-5,.col-6,.col-1{
+  padding-left:10px;
+  padding-right:0;
+}
+
 .form{
   width: 100%;
   position: relative;

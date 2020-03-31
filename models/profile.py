@@ -1,4 +1,7 @@
 import datetime
+import sys
+sys.path.append('C:\\Users\\Raz_Z\\Projects\\Minibus-new')
+from env.config import MONGO_URI
 from common.db import Database
 import random
 from flask import session
@@ -9,9 +12,15 @@ default_image_locations = {'male' : 'images/male-profile-image.png',
                                 '' : 'images/no-gender-profile-image.jpg'}
 
 class Profile():
-    def __init__(self, full_name, email, password='123', phone_number=None ,date_of_birth=None, residence=None,
-                 gender='male',pre_army=None, army_service=None, education=None, hobbies=None,
-                 interes=None, hashtags=None, ready_to_asist=None, _id=None, image_location=None,
+    def __init__(self, full_name, email, password='123',
+                 phone_number=None ,date_of_birth=None, residence=None,
+                 gender='male',
+                 pre_army=None, inst_army=None, army=None, more_frames = None,
+                 inst_education=None, education=None, inst_job=None, job=None,
+                 education_work_more=None,
+                 hobbies=None,
+                 interes=None, hashtags=None, ready_to_asist=None, ways_to_asist=None,
+                  _id=None, image_location=None,
                  creation_date = datetime.datetime.now()):
         self._id = full_name + str(random.randint(100,999)) if _id is None else _id
         self.full_name = str(full_name)
@@ -22,12 +31,19 @@ class Profile():
         self.residence = residence
         self.gender = gender
         self.pre_army = pre_army
-        self.army_service = army_service
+        self.inst_army = inst_army
+        self.army = army
+        self.more_frames = more_frames
+        self.inst_education = inst_education
         self.education = education
+        self.inst_job = inst_job
+        self.job = job
+        self.education_work_more = education_work_more
         self.hobbies = hobbies
         self.interes = interes
         self.hashtags = hashtags
         self.ready_to_asist = ready_to_asist
+        self.ways_to_asist = ways_to_asist
         self.image_location = default_image_locations[gender] if image_location in [None,'']  else image_location
         self.creation_date = creation_date
 
@@ -35,28 +51,36 @@ class Profile():
         return f"{self._id}-{self.full_name}"
 
     def json(self):
-        return dict(
-            _id = self._id,
-            full_name = self.full_name,
-            email = self.email,
-            phone_number = self.phone_number,
-            date_of_birth = self.date_of_birth,
-            residence = self.residence,
-            gender = self.gender,
-            pre_army = self.pre_army,
-            army_service = self.army_service,
-            education = self.education,
-            hobbies = self.hobbies,
-            interes = self.interes,
-            hashtags = self.hashtags,
-            ready_to_asist = self.ready_to_asist,
-            image_location = self.image_location,
-            creation_date = self.creation_date.strftime("%m/%d/%Y, %H:%M:%S")
-        )
+        json = self.__dict__.copy() 
+        del json['password']
+        json['creation_date'] = self.creation_date.strftime("%m/%d/%Y, %H:%M:%S")
+        return json
+        # return dict(
+        #     _id = self._id,
+        #     full_name = self.full_name,
+        #     email = self.email,
+        #     phone_number = self.phone_number,
+        #     date_of_birth = self.date_of_birth,
+        #     residence = self.residence,
+        #     gender = self.gender,
+        #     pre_army = self.pre_army,
+        #     army_service = self.army_service,
+        #     education = self.education,
+        #     hobbies = self.hobbies,
+        #     interes = self.interes,
+        #     hashtags = self.hashtags,
+        #     ready_to_asist = self.ready_to_asist,
+        #     image_location = self.image_location,
+        #     creation_date = self.creation_date.strftime("%m/%d/%Y, %H:%M:%S")
+        # )
 
     def save_to_database(self):
         Database.insert('profiles',self.__dict__)
-
+            
+    @staticmethod
+    def update(user_data, email):
+        Database.update_one('profiles',{'email' : email}, user_data) 
+    
     @classmethod
     def from_id(cls, id):
         data = Database.find_one('profiles',{'_id' : id})
@@ -103,5 +127,8 @@ class Profile():
         session['email'] = None
 
 if __name__ == '__main__':
-    Database.initialize()
-    print(Profile.from_mongo('asd708'))
+    Database.initialize(MONGO_URI)
+    a = Database.get_all_profiles()
+    b = a[0]
+    user = Profile(**b)
+    print(user.json())

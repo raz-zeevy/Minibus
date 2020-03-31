@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- TO SET THE ICON - <link rel="shortcut icon" href="https://example.com/myicon.ico"> -->
     <title>Minibus</title>
-    <script src="https://kit.fontawesome.com/108c121b35.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>{{ title }}</title>
     {% with messages = get_flashed_messages() %} {% if messages %}
@@ -21,7 +21,7 @@
     <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info" style="padding-left:12px">
         </button>
         <a class="navbar-brand" href="/search">
-            <img class="navbarLogo" src="static/images/minibus-logo.jpg" alt="">
+            <img class="navbarLogo" src="{{url_for('static',filename='images/minibus-logo.jpg')}}" alt="">
         </a>
         {% if session.get('email') != None %}
         <ul class="nav justify-content-end">

@@ -32,58 +32,41 @@
       </div>
     </div>
   </div>
-  <div class="tab">
+  <div class="tab text-right">
+    <h3 class="cool-text">מסגרות</h3>
+    <span class="small">כדאי לציין רמת מעורבות ואם שמרתי על קשר</span>
+    <div class="row">
+        <div class="col">
+            <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
+            <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
+        </div>
+    </div>
+    <h3 class="cool-text">שירות צבאי</h3>
+    <div id="army">
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="">מסגרות נוספות:</label>
+            <input type="text" class="form-control" placeholder="" name="more_frames">
+        </div>
+    </div>
+</div>
+
+<div class="tab">
     <h3 class="cool-text">השכלה ותעסוקה</h3>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="תעודות מקצועיות" name="education">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="עוד" name="education">
-      </div>
-    </div>
-  </div>
+    <div id="education">
 
-  <div class="tab">
-    <h3 class="cool-text">מסגרות נוספות</h3>
-    <div class="row">
-      <div class="col">
-        <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
-        <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
-      </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <label for="">שירות צבאי:</label>
-        <input type="text" class="form-control" placeholder="" name="army_service">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="">מסגרות נוספות:</label>
-        <input type="text" class="form-control" placeholder="" name="pre_army">
-      </div>
-    </div>
-  </div>
+    <div id="positions">
 
+    </div>
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="עוד" name="education_work_more">
+        </div>
+    </div>
+</div>
   <div class="tab">
       <h3 class="cool-text">קצת על {{profile.full_name}}</h3>
     <div class="row">
@@ -117,25 +100,10 @@
   <small>{{profile.hashtags}}</small>
 </div>
 </div>
-
+  
 <script type="text/javascript">
-  var profile = {{profile|safe}};
-  var tabs = document.querySelectorAll(".tab");
-  for (var i=0; i < tabs.length; ++i){
-    tab = tabs[i]
-    text_inputs = $(tab).find('input')
-    var keep_tab = false;
-    for (var j=0; j < text_inputs.length; ++j){
-      if (profile[text_inputs[j].name] == ""){
-        text_inputs[j].style.display = "none";
-      }
-      else{
-      text_inputs[j].disabled = true;
-      text_inputs[j].value = profile[text_inputs[j].name]
-      keep_tab = true
-    }}
-    if (!keep_tab){
-      tabs[i].style.display = "none";
-    }}
+  var profile = {{profile|tojson()}};
 </script>
+<script src="{{url_for('static',filename='js/display-rows.js')}}"></script>
+<script src="{{url_for('static',filename='js/user-profile.js')}}"></script>
 {% endblock %}

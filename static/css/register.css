@@ -3,6 +3,10 @@ input[type="date"]{
   padding:0;
 }
 
+.col-6,.col-5,.col-1{
+  padding: 0px 2px;
+  padding-right:5px;
+}
 
 button[type="button"]{
   margin-right: 2%;

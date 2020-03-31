@@ -1,5 +1,8 @@
 import pymongo
 import os
+import sys
+sys.path.append('C:\\Users\\Raz_Z\\Projects\\Minibus-new')
+from env.config import MONGO_URI
 
 class Database(object):
     DATABASE = None
@@ -50,4 +53,4 @@ class Database(object):
         return profiles_data
 
 if __name__ == '__main__':
-    pass
+    Database.initialize(MONGO_URI)

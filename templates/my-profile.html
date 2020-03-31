@@ -4,11 +4,11 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='css/my-profile.css') }}"> {% endblock %} {% block content %}
 <div class="container">
     <div class="form text-center">
-        <span onclick="optionsOpen()" class="fas fa-ellipsis-v" style="float:right"></span>
+        <span id="options" class="fas fa-ellipsis-v" style="float:right;padding:10px"></span>
         <div id="more-options" style="position:absolute;top:-10px;right:60px">
             <ul class="more-options" style="list-style: none;">
             <li>
-                <button onclick="editClick()" class="more-option" style="width=100%" value="edit">
+                <button id="options-edit" class="more-option" value="edit">
                     <i style="" class="fa fa-edit"></i>
                     ערוך פרופיל
                 </button>
@@ -23,17 +23,36 @@
         </div>
         <img src="{{url_for('static',filename=profile.image_location)}}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
         <h1 class="display-4 text-center">{{profile.full_name}}</h1>
+        <div id="control-changes" style="overflow:auto">
+            <div id="cancle" style="float:left;">
+                <span id="cancle-changes">
+                    <i id="cancle-changes-logo" class="far fa-times-circle change-control-icon" style="display:block"></i>
+                    ביטול
+                </span>
+            </div>
+            <div id="save">
+                <span id="save-changes">
+                    <i id="save-changes-logo" class="far fa-check-circle change-control-icon" style="display:block"></i>
+                    שמור<br>שינויים
+                </span>
+            </div>           
+        </div>
+    <form id="my-profile" method="POST" action="/my-profile/update">
         <div class="tab">
             <h3 class="cool-text">פרטי התחברות</h3>
             <div class="row">
-                <span class="small">שם מלא</span>
-                <input type="text" class="form-control crucial-input" placeholder="" name="full_name">
-            </div>
-            <div class="row">
-                <span class="small">אימייל</span>
-                <input type="text" class="form-control crucial-input email" placeholder="" name="email">
+                <div class="col-sm-12 col-md-4">
+                    <span class="small">אימייל</span>
+                    <input type="text" class="form-control crucial-input" placeholder="" name="email">
+                </div>
             </div>
             <h3 class="cool-text">פרטים אישיים</h3>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <span class="small">שם מלא</span>
+                    <input type="text" class="form-control crucial-input" placeholder="" name="full_name">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-6">
                     <span class="small">מספר טלפון</span>
@@ -41,55 +60,25 @@
                 </div>
                 <div class="col-6">
                     <span class="small">תאריך לידה</span>
-                    <input type="date" placeholder="תאריך לידה:" class="form-control" min="1980" max="2002" step="1" name="date_of_birth">
+                    <input type="date" placeholder="תאריך לידה:" class="form-control crucial-input" min="1980" max="2002" step="1" name="date_of_birth">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-6">
                     <span class="small">ישוב</span>
-                    <input type="text" placeholder="ישוב" class="form-control" name="residence">
+                    <input type="text" placeholder="ישוב" class="form-control crucial-input" name="residence">
                 </div>
-                <div class="col-md-2">
+                <div class="col-6">
                     <span class="small">מגדר</span>
-                    <select type="text" class="form-control" name="gender">
+                    <select type="text" class="form-control crucial-input" name="gender">
       <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
-      </select>
+    </select>
                 </div>
             </div>
         </div>
 
-        <div class="tab">
-            <h3 class="cool-text">השכלה ותעסוקה</h3>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="תעודות מקצועיות" name="education">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="תואר, תחום, מוסד, שנת לימודים" name="education">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="ארגון ותפקיד" name="education">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="עוד" name="education">
-                </div>
-            </div>
-        </div>
-
-        <div class="tab">
-            <h3 class="cool-text">מסגרות נוספות</h3>
+        <div class="tab text-right">
+            <h3 class="cool-text">מסגרות</h3>
             <span class="small">כדאי לציין רמת מעורבות ואם שמרתי על קשר</span>
             <div class="row">
                 <div class="col">
@@ -97,21 +86,31 @@
                     <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="">שירות צבאי:</label>
-                    <input type="text" class="form-control" placeholder="" name="army_service">
-                </div>
+            <h3 class="cool-text">שירות צבאי</h3>
+            <div id="army">
             </div>
             <div class="row">
                 <div class="col">
                     <label for="">מסגרות נוספות:</label>
-                    <input type="text" class="form-control" placeholder="" name="pre_army">
+                    <input type="text" class="form-control" placeholder="" name="more_frames">
                 </div>
             </div>
         </div>
 
         <div class="tab">
+            <h3 class="cool-text">השכלה ותעסוקה</h3>
+            <div id="education">
+            </div>
+            <div id="positions">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="עוד" name="education_work_more">
+                </div>
+            </div>
+        </div>
+
+        <div class="tab text-right">
             <h3 class="cool-text">קצת על עצמי</h3>
             <div class="row">
                 <div class="col">
@@ -145,51 +144,18 @@
             <div class="row">
                 <div class="col">
                     <label for="">דרכים נוספות שאפשר להעזר בי:</label>
-                    <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+                    <input type="text" class="form-control" placeholder="" name="ways_to_asist">
                 </div>
             </div>
         </div>
+    </form>
     </div>
 </div>
-
 <script type="text/javascript">
-    var profile = {{profile.json()|safe}};
-    togleEditOff(true)
-    options = document.getElementById('more-options');
-
-    function togleEditOff(disableAll){
-        var text_inputs = document.querySelectorAll("input[type=text]");
-        for (var i = 0; i < text_inputs.length; ++i) {
-            if (i > 8) {
-                text_inputs[i].placeholder = "";
-            }
-            text_inputs[i].value = profile[text_inputs[i].name]
-            text_inputs[i].disabled = disableAll
-        }
-        var gender = document.querySelector("select");
-        gender.disabled = disableAll;
-        gender.value = profile['gender'];
-        var date = document.querySelector("input[type=date]");
-        date.disabled = disableAll;
-        date.value = profile['date_of_birth']
-        var date = document.querySelector("input[type=tel]");
-        date.disabled = disableAll;
-        date.value = profile['phone_number']
-
-    }
-    function optionsOpen(){
-        options.style.display = 'block';
-        console.log('options clicked');
-        close = addEventListener(mou)
-        document.addEventListener(onclick(optionsClose()))
-    }
-    function optionsClose(){
-        options.style.display = 'none';
-    }
-    function editClick(){
-        optionsClose()
-        togleEditOff(false)
-    }
-    
+    var profile = {{profile.json()|tojson()}};
+    console.log(profile);
 </script>
+<script src="{{url_for('static',filename='js/display-rows.js')}}"></script>
+<script src="{{url_for('static',filename='js/my-profile.js')}}"></script>
+<script src="{{url_for('static',filename='js/add-rows.js')}}"></script>
 {% endblock %}
