@@ -1,1 +1,1 @@
-web: flask; gunicorn ha-minibus:app --log-file -
+web: gunicorn --bind 0.0.0.0:$PORT ha-minibus:app
