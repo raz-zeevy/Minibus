@@ -7,14 +7,16 @@ from common.db import Database
 import secrets, os
 
 app = Flask(__name__)
-app.secret_key = secrets.token_hex()
+
 
 is_prod = os.environ.get('IS_HEROKU', None)
 
 if is_prod:
     MONGO_URI = os.environ.get('MONGO_URI', None)
+    app.secret_key = os.environ.get('SECRET_KEY', None)
 elif not is_prod:
     import env.config as config
+    app.secret_key = secrets.token_hex()
     MONGO_URI = config.MONGO_URI
 
 def parse_form(form_data):
