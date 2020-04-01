@@ -19,7 +19,6 @@ else:
 
 def parse_form(form_data):
     user_data = form_data
-    print("1: ",user_data)
     for key in user_data:
         try:
             if isinstance(user_data[key],list):
@@ -34,7 +33,6 @@ def parse_form(form_data):
                         user_data[key] = None
         except:
             pass
-    print("2: ",user_data)
     return user_data
 
 def if_logged_in(f):

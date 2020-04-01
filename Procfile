@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file -
+web: flask; gunicorn ha-minibus:app --log-file -
