@@ -19,7 +19,10 @@ var tabs = document.querySelectorAll(".tab");
 
 var army = profile['army'];
 var inst_army = profile['inst_army'];
-
+if (typeof(army) == 'string'){
+    army = [army];
+    inst_army = [inst_army];
+}
 for (var i=0; i < army.length; i++){
     $('#army').append(`<div class="row">
     <div class="col-5">
