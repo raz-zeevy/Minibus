@@ -58,11 +58,28 @@ function validateForm() {
             // and set the current valid status to false:
             valid = false;
         }
+        else{
+            if (y[i].classList.contains('invalid')){
+                y[i].classList.remove('invalid');
+            }
+        }
+    }
+    phoneValue = parsePhone($('#phone-input')[0].value)
+    if (!phoneValue[0]){
+        if (!$('#phone-input')[0].classList.contains('invalid')){
+        // add an "invalid" class to the field:
+            $('#phone-input')[0].className += " invalid";
+        }
+        // and set the current valid status to false:
+        valid = false;
+    } else {
+        $('#phone-input')[0].value = phoneValue[1];
     }
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
+    console.log(phoneValue[0],phoneValue[1],phoneValue[2]);
     return valid; // return the valid status
 }
 

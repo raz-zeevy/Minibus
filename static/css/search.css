@@ -124,6 +124,7 @@ body {
     color: white;
     transition: all 0.3s ease 0s;
     text-decoration: none;
+    padding: 0px 5px;
 }
 
 .our-team .social li a:hover {

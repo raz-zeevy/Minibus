@@ -26,9 +26,11 @@
                         <h4 class="title">{{user['date_of_birth'] or "default"}}</h4>
                     </div>
                     <ul class="social">
-                        <!-- <li><a href="" class="fab fa-facebook-f" aria-hidden="true"></a></li> -->
                         <li>
-                            <a href='' class="fas fa-phone" aria-hidden="true"></a>
+                            <a style="padding-right:10px;" href="tel:{{user['phone_number']}}" class="fas fa-phone" aria-hidden="true"></a>
+                        </li>
+                        <li>
+                            <a href="https://api.whatsapp.com/send?phone={{'972'+user['phone_number']}}" class="fab fa-whatsapp" aria-hidden="true"></a>
                         </li>
                         <li>
                             <form method="GET" action="/user-profile">

@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-6">
                         <span class="small">מספר טלפון</span>
-                        <input type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
+                        <input id="phone-input" type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
                     </div>
                     <div class="col-6">
                         <span class="small">תאריך לידה</span>
@@ -172,6 +172,7 @@
         </form>
     </div>
 </div>
+<script src="{{url_for('static',filename='js/phone-parser.js')}}"></script>
 <script src="{{url_for('static',filename='js/register.js')}}"></script>
 <script src="{{url_for('static',filename='js/add-rows.js')}}"></script>
 
