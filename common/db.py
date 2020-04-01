@@ -1,8 +1,15 @@
 import pymongo
 import os
 import sys
-sys.path.append('C:\\Users\\Raz_Z\\Projects\\Minibus-new')
-from env.config import MONGO_URI
+
+is_prod = os.environ.get('IS_HEROKU', None)
+
+if is_prod:
+    MONGO_URI = os.environ.get('MONGO_URI', None)
+elif not is_prod:
+    sys.path.append('C:\\Users\\Raz_Z\\Projects\\Minibus-new')
+    import env.config as config
+    MONGO_URI = config.MONGO_URI
 
 class Database(object):
     DATABASE = None

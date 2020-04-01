@@ -1,10 +1,17 @@
 import datetime
 import sys
-sys.path.append('C:\\Users\\Raz_Z\\Projects\\Minibus-new')
-from env.config import MONGO_URI
 from common.db import Database
 import random
 from flask import session
+
+is_prod = os.environ.get('IS_HEROKU', None)
+
+if is_prod:
+    MONGO_URI = os.environ.get('MONGO_URI', None)
+elif not is_prod:
+    sys.path.append('C:\\Users\\Raz_Z\\Projects\\Minibus-new')
+    import env.config as config
+    MONGO_URI = config.MONGO_URI
 
 default_image_locations = {'male' : 'images/male-profile-image.png',
                                'female' : 'images/female-profile-image.png',

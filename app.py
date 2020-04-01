@@ -13,7 +13,7 @@ is_prod = os.environ.get('IS_HEROKU', None)
 
 if is_prod:
     MONGO_URI = os.environ.get('MONGO_URI', None)
-else:
+elif not is_prod:
     import env.config as config
     MONGO_URI = config.MONGO_URI
 
