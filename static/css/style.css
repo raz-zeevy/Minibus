@@ -52,9 +52,8 @@ section {
     padding: 0;
 }
 
-#navbar-icon {
-    font-size: 30px;
-    padding: 0 6%;
+.login-navbar{
+    background-color: rgba(23, 162, 184,0.4);
 }
 
 #searchBox {
@@ -76,6 +75,22 @@ input {
     mix-blend-mode: multiply;
     height: 35px;
     width: auto;
+}
+
+.bottom-navbar{
+    zoom: 1; /* Trigger hasLayout */
+    width: 100%;
+    text-align: center;
+}
+
+#navbar-icon {
+    font-size: 30px;
+    margin:auto
+}
+
+.bottom-navbar:last-child{
+    margin:auto;
+    font-size: 20px;
 }
 
 .active {

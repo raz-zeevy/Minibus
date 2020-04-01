@@ -18,18 +18,11 @@
         {% endfor %}
     </ul>
     {% endif %} {% endwith %}
-    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info" style="padding-left:12px">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info" style="padding-left:12px;{% if session.get('email') %}opacity: 0.5;{% endif %}">
         </button>
         <a class="navbar-brand" href="/search">
             <img class="navbarLogo" src="{{url_for('static',filename='images/minibus-logo.jpg')}}" alt="">
         </a>
-        {% if session.get('email') != None %}
-        <ul class="nav justify-content-end">
-            <li class="nav-item" style="float:left">
-                <a class="btn btn-outline-dark" href="/logout">יצאתי</a>
-            </li>
-        </ul>
-        {% endif %}
     </nav>
     {% block head %} {% endblock %}
 </head>
@@ -44,7 +37,7 @@
 </body>
 {% if session.get('email') != None %}
 <nav class="navbar fixed-bottom bg-info">
-    <ul class="nav mx-auto" style="padding-inline-start:0px;">
+    <ul class="nav mx-auto bottom-navbar" style="padding-inline-start:0px;">
         <li class="nav-item active" id="navbar-icon">
             <a class="nav-link fa fa-address-card {% if title=='my-profile' %} disabled {% endif %}" href="/my-profile" active><span style="display: block;">פרופיל</span></a>
         </li>
@@ -53,6 +46,9 @@
         </li>
         <li class="nav-item" id="navbar-icon">
             <a class="nav-link fa fa-info-circle {% if title == 'about' %} disabled {% endif %}" href="/about"><span style="display: block;">אודות</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fas fa-sign-out-alt" href="/logout" style="color: #555555;"><span style="display: block;columns: #555555;;">התנתק</span></a>
         </li>
     </ul>
 </nav>
