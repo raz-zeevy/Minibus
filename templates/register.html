@@ -156,10 +156,6 @@
             </div>
             <button class="btn btn-dark" type="button" id="prevBtn" onclick="nextPrev(-1)">הקודם</button>
             <button class="btn btn-info" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
-            <div class="text-center" id="form-sent" style="display:none;">
-                <h2>הטופס נשלח בהצלחה</h2>
-                <p class="text-muted">מיד תועבר לדף הראשי</p>
-            </div>
             <!-- Circles which indicates the steps of the form: -->
             <div style="text-align:center;margin-top:40px;">
                 <span class="step"></span>
@@ -172,6 +168,7 @@
         </form>
     </div>
 </div>
+<script>const approvedPhones = "{{ approved_phones|join(',') }}";</script>
 <script src="{{url_for('static',filename='js/phone-parser.js')}}"></script>
 <script src="{{url_for('static',filename='js/register.js')}}"></script>
 <script src="{{url_for('static',filename='js/add-rows.js')}}"></script>

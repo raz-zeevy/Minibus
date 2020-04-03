@@ -37,7 +37,7 @@ function nextPrev(n) {
         document.getElementById("prevBtn").style.display = "none";
         document.getElementById("nextBtn").style.display = "none";
         document.getElementById("regForm").submit();
-        document.getElementById("form-sent").style.display = "inline";
+        Notiflix.Loading.Dots('נשלח בהצלחה...');
         return false;
     }
     // Otherwise, display the correct tab:
@@ -48,7 +48,7 @@ function validateForm() {
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
     x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByClassName("crucial-input");
+    y = x[currentTab].getElementsByClassName("2crucial-input");
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         // If a field is empty...

@@ -26,11 +26,9 @@ class Database(object):
 
     @staticmethod
     def insert(collection, data):
-        request = Database.DATABASE[collection].insert(data)
-        if isinstance(request, str):
-            print(f"1 row was created : _id = {request}")
-        else:
-            print(f"{len(request)} row was created : _id's = {request}")
+        request = Database.DATABASE[collection].insert_one(data)
+        print(f"1 row was created : _id = {request}")
+        return True
 
     @staticmethod
     def find(collection, query):
@@ -59,5 +57,28 @@ class Database(object):
         profiles_data = [row for row in Database.find('profiles',{})]
         return profiles_data
 
+    @staticmethod
+    def get_approved_phones():
+        approved_phones = [row['phone_number'] for row in Database.find('approved_phones',{})]
+        return approved_phones
+    
+    @staticmethod
+    def delete_one(collection, query):
+        request = Database.DATABASE[collection].delete_one(query)
+        return request
+    
+    @staticmethod
+    def insert_incremented(collection, data):
+        data['_id'] = Database.find_one('sequences',{'_id' : collection})['next_sequence']
+        request = Database.insert(collection, data)
+        if request:
+            Database.update_one('sequences',{'_id' : collection},{'next_sequence' : data['_id']+1})
+            return True
+        else:
+            print('something might be wrong with the insert query')
+            return False
+    
 if __name__ == '__main__':
     Database.initialize(MONGO_URI)
+    data = {'phone_number' : '0544663407'}
+    Database.insert_incremented('approved_phones',data)

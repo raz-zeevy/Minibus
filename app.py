@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, flash
 from flask import session, request, url_for
 from models.profile import Profile
 from common.db import Database
-import secrets, os
+import secrets, os, datetime
 
 app = Flask(__name__)
 
@@ -62,7 +62,7 @@ def index():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    error = None
+    message = None
     if request.method == 'POST':
         email = request.form.get('email').lower()
         password = request.form.get('password')
@@ -70,14 +70,18 @@ def login():
             Profile.login(email)
             return redirect('search')
         else:
-            error = 'פרטי התחברות לא תקינים, נסה שוב'
-            return render_template('login.html', error=error)
+            message = dict(
+                type ='Failure',
+                content =  'פרטי התחברות לא תקינים, נסה שוב'
+            )
+            return render_template('login.html', message=message)
 
-    return render_template('login.html', error=error)
+    return render_template('login.html', message=message)
 
 @app.route('/register')
 def register():
-    return render_template('register.html')
+    af = Database.get_approved_phones()
+    return render_template('register.html', approved_phones=af)
 
 @app.route('/register/submit', methods=['POST'])
 def register_submit():
@@ -95,8 +99,10 @@ def search():
     profiles = [Profile(**profile) for profile in Database.get_all_profiles()]
     matched_profiles = []
     search_query = request.args.get('search_query')
-    print(search_query)
     if search_query is not None:
+        if is_prod:
+            search_data = dict(time=datetime.datetime.now(),user=session['email'],string=search_query)
+            Database.insert('searches',search_data)
         for profile in profiles:
             user_string = ''
             for value in profile.json().values():
@@ -105,10 +111,9 @@ def search():
                 elif isinstance(value,(str,int,float)):
                     user_string+=str(value)
                 else:
-                    print("I wont try to search",value)
+                    print("I won't try to search",value)
             if search_query in user_string:
                 matched_profiles.append(profile)
-    matched_profiles = profiles if matched_profiles == [] else matched_profiles
     search_results = [profile.json() for profile in matched_profiles]
     return render_template('search.html', title="search", users=search_results)
 
@@ -119,18 +124,30 @@ def about():
 
 @app.route('/my-profile')
 @if_logged_in
-def my_profile():
+def my_profile(message=None):
     profile = Profile.from_email(session['email'])
-    return render_template('my-profile.html', profile=profile, title="my-profile")
+    return render_template('my-profile.html', profile=profile, title="my-profile", message=message)
 
 @app.route('/my-profile/update', methods=['POST'])
 @if_logged_in
 def update_profile():
     if request.method == 'POST':
+        message = dict(
+                type ='Success',
+                content =  'פרטי הפרופיל עודכנו'
+            )
         user_data = request.form.to_dict(flat=False)
         user_data = parse_form(user_data)
         Profile.update(user_data, session['email'])
-    return my_profile()
+    return my_profile(message)
+ 
+@app.route('/my-profile/delete', methods=['POST'])
+@if_logged_in
+def delete_profile():
+    if request.methods == 'POST':
+        user_email = session['email']
+        Database.delete_one({'email' : user_email})
+    return logout()
 
 @app.route('/user-profile/', methods=["GET"])
 @if_logged_in

@@ -1,0 +1,72 @@
+{
+  "_from": "mcx-dialog-mobile",
+  "_id": "mcx-dialog-mobile@0.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-JQP+zJDclHelj73OrGzjt0lgkriwQQGFMQYegBcRlOH9+JMs3bxQI4b+1ClXDeycLRBIjXe0lan4S9FKwcaS0w==",
+  "_location": "/mcx-dialog-mobile",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "mcx-dialog-mobile",
+    "name": "mcx-dialog-mobile",
+    "escapedName": "mcx-dialog-mobile",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/mcx-dialog-mobile/-/mcx-dialog-mobile-0.2.0.tgz",
+  "_shasum": "b954cd7d60b567caf5d9e84828662e5622f01b54",
+  "_spec": "mcx-dialog-mobile",
+  "_where": "C:\\Users\\Raz_Z\\Projects\\Minibus-new",
+  "author": {
+    "name": "mcx"
+  },
+  "bugs": {
+    "url": "https://github.com/code-mcx/mcx-dialog-mobile/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A dialog plugin for mobile web page based on primary javascript",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
+    "file-loader": "^1.1.6",
+    "rollup": "^0.68.1",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-uglify": "^6.0.0",
+    "style-loader": "^0.20.1",
+    "webpack": "^3.10.0"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "homepage": "https://github.com/code-mcx/mcx-dialog-mobile#readme",
+  "keywords": [
+    "dialog",
+    "mobile",
+    "vue",
+    "react"
+  ],
+  "license": "MIT",
+  "main": "dist/mcx-dialog.common.js",
+  "module": "dist/mcx-dialog.esm.js",
+  "name": "mcx-dialog-mobile",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-mcx/mcx-dialog-mobile.git"
+  },
+  "scripts": {
+    "build": "node scripts/build",
+    "dev": "webpack --config webpack.conf.js"
+  },
+  "version": "0.2.0"
+}

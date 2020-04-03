@@ -14,7 +14,7 @@
                 </button>
             </li>
             <li>
-                <button class="more-option" style="width=100%" value="edit">
+                <button id="delete-profile" class="more-option" style="width=100%" value="edit">
                     <i style="color:hsl(344, 100%, 54%)" class="fas fa-user-slash"></i>
                     מחק פרופיל
                 </button>
@@ -153,7 +153,6 @@
 </div>
 <script type="text/javascript">
     var profile = {{profile.json()|tojson()}};
-    console.log(profile);
 </script>
 <script src="{{url_for('static',filename='js/display-rows.js')}}"></script>
 <script src="{{url_for('static',filename='js/my-profile.js')}}"></script>

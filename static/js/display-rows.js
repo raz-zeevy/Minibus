@@ -1,4 +1,3 @@
-console.log("now im working on the rows");
 var tabs = document.querySelectorAll(".tab");
   for (var i=0; i < tabs.length; ++i){
     tab = tabs[i]

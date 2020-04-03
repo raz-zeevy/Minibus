@@ -3,7 +3,6 @@ $('#control-changes').hide();
 $('.fa-plus-circle').hide();
 
 $(document).on('click', function(e) {
-    console.log(e.target.id);
     if (e.target.id === 'options') {
         console.log('opened options');
         $('#more-options').show();
@@ -11,7 +10,6 @@ $(document).on('click', function(e) {
         $('#more-options').hide();
     }
     if (e.target.id === 'save-changes' || e.target.id === 'save-changes-logo'){
-        console.log('save changes');
         $('#control-changes').hide();
         inputs = $('input')
         for (var i=0;i<inputs.length;i++){
@@ -23,7 +21,6 @@ $(document).on('click', function(e) {
         document.getElementById("my-profile").submit();
 
     } else if (e.target.id === 'cancle' || e.target.id === 'cancle-changes-logo'){
-        console.log('cancle changes');
         $('#control-changes').hide();
         $('.fa-plus-circle').hide();
         togleEditOff(true);
@@ -36,8 +33,22 @@ $('#options-edit').click(function(e){
     $('.fa-plus-circle').show();
 });
 
+$('#delete-profile').click(function(e){
+    if (profile['gender'] == 'male'){
+        var content = 'בטוח שאתה רוצה למחוק את הפרופיל?'
+    } else{
+        var content = 'בטוחה שאת רוצה למחוק את הפרופיל?'
+    }
+    Notiflix.Confirm.Show('מחיקת פרופיל "מיניבוס"',content,'לא','כן',
+                function(){
+                    // Yes button callbackaler
+                },
+                function(){
+                // No button callback
+                alert('If you say so...');});
+});
+
 function togleEditOff(disableAll){
-    console.log(`toggled editOFF ${disableAll}`)
     var text_inputs = document.querySelectorAll("input");
     for (var i = 0; i < text_inputs.length; ++i) {
         text_inputs[i].disabled = disableAll
@@ -54,6 +65,5 @@ function togleEditOff(disableAll){
 }
 
 function optionsClose(){
-    console.log('ok im hiding');
     $('#more-options').hide();
 }
