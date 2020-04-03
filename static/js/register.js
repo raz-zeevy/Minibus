@@ -57,6 +57,7 @@ function validateForm() {
             y[i].className += " invalid";
             // and set the current valid status to false:
             valid = false;
+            var empty = true;
         }
         else{
             if (y[i].classList.contains('invalid')){
@@ -64,11 +65,13 @@ function validateForm() {
             }
         }
     }
+    if (empty) {Notiflix.Notify.Failure("לא מילאת את כל שדות החובה");}
     phoneValue = parsePhone($('#phone-input')[0].value)
     if (!phoneValue[0]){
         if (!$('#phone-input')[0].classList.contains('invalid')){
         // add an "invalid" class to the field:
             $('#phone-input')[0].className += " invalid";
+            Notiflix.Notify.Failure(phoneValue[1]);
         }
         // and set the current valid status to false:
         valid = false;
@@ -79,7 +82,6 @@ function validateForm() {
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
     }
-    console.log(phoneValue[0],phoneValue[1],phoneValue[2]);
     return valid; // return the valid status
 }
 

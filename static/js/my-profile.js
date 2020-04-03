@@ -1,10 +1,10 @@
 togleEditOff(true);
+loadRows(false);
 $('#control-changes').hide();
 $('.fa-plus-circle').hide();
 
 $(document).on('click', function(e) {
     if (e.target.id === 'options') {
-        console.log('opened options');
         $('#more-options').show();
     } else {
         $('#more-options').hide();
@@ -28,6 +28,7 @@ $(document).on('click', function(e) {
 });
 
 $('#options-edit').click(function(e){
+    loadRows(true);
     togleEditOff(false);
     $('#control-changes').show()
     $('.fa-plus-circle').show();
@@ -40,13 +41,13 @@ $('#delete-profile').click(function(e){
         var content = 'בטוחה שאת רוצה למחוק את הפרופיל?'
     }
     Notiflix.Confirm.Show('מחיקת פרופיל "מיניבוס"',content,'לא','כן',
-                function(){
-                    // Yes button callbackaler
-                },
-                function(){
-                // No button callback
-                alert('If you say so...');});
-});
+        function(){
+            // Yes button callbackaler
+        },
+        function(){
+            document.getElementById("delete-form").submit();
+            Notiflix.Loading.Dots();
+})});
 
 function togleEditOff(disableAll){
     var text_inputs = document.querySelectorAll("input");

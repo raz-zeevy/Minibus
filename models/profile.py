@@ -138,4 +138,5 @@ if __name__ == '__main__':
     a = Database.get_all_profiles()
     b = a[0]
     user = Profile(**b)
-    print(user.json())
+    # print(user)
+    print("asdasd/'".punctuation())

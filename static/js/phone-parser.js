@@ -3,7 +3,7 @@ function prefixParsePhone(phone){
       if (phone.substring(0,2) == '05')
         return [true, "+972"+phone.substring(1,phone.length)]
       else
-        return [false,"this is not a valid prefix for a phone number"]
+        return [false,"הקידומת של מספר הטלפון לא חוקית"]
     }
     if (phone.length == 12 && phone.substring(0,3) == '972'){
       return [true, "+"+phone]
@@ -12,10 +12,10 @@ function prefixParsePhone(phone){
       return [true, phone]
     }
     if (phone.length < 10){
-      return [false, "This is too short for a mobile-phone number"]
+      return [false, "המספר טלפון שהכנסת קצר מדי"]
     } 
     else if (phone.length > 10){
-      return [false, "are you sure it's a valid phone number?"]
+      return [false, "בטוח שהכנסת נכון את מספר הטלפון?"]
     } 
 }
 
@@ -25,17 +25,17 @@ function parsePhone(phone){
     if (phone.substring(0,2) == '05')
       return [true, phone]
     else
-      return [false,"this is not a valid prefix for a phone number",phone]
+      return [false,"הקידומת של מספר הטלפון לא חוקית",phone]
   } else if (phone.length > 10){
     if (phone[0] === '+'){
       return [true, '0'+phone.substring(phone.length-9,phone.length),phone]
     } else if (phone.length == 12 && phone.substring(0,3) == '972') {
       return [true, '0'+phone.substring(3,phone.length),phone]
     } else{
-      return [false, "are you sure it's a valid phone number?",phone]
+      return [false, "בטוח שהכנסת נכון את מספר הטלפון?",phone]
     }
   } else {
-      return [false, "This is too short for a mobile-phone number",phone]
+      return [false, "המספר טלפון שהכנסת קצר מדי",phone]
   }
 }
 

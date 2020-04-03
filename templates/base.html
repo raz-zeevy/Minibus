@@ -14,7 +14,7 @@
     <script src="{{ url_for('static', filename='notiflix/dist/Unminified/notiflix-2.1.2.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>{{ title }}</title>
-    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info" style="padding-left:12px;{% if session.get('email') %}opacity: 0.5;{% endif %}">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-info" style="padding-left:12px;{% if session.get('email') %}opacity: 0.5; shadow-box:none;-moz-box-shadow:none;-webkit-box-shadow:none;{% endif %}">
         </button>
         <a class="navbar-brand" href="/search">
             <img class="navbarLogo" src="{{url_for('static',filename='images/minibus-logo.jpg')}}" alt="">

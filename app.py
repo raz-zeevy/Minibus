@@ -62,21 +62,23 @@ def index():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    message = None
-    if request.method == 'POST':
-        email = request.form.get('email').lower()
-        password = request.form.get('password')
-        if Profile.login_valid(email, password):
-            Profile.login(email)
-            return redirect('search')
-        else:
-            message = dict(
-                type ='Failure',
-                content =  'פרטי התחברות לא תקינים, נסה שוב'
-            )
-            return render_template('login.html', message=message)
-
-    return render_template('login.html', message=message)
+    if session.get('email') is None:
+        message = None
+        if request.method == 'POST':
+            email = request.form.get('email').lower()
+            password = request.form.get('password')
+            if Profile.login_valid(email, password):
+                Profile.login(email)
+                return redirect('search')
+            else:
+                message = dict(
+                    type ='Failure',
+                    content =  'פרטי התחברות לא תקינים, נסה שוב'
+                )
+                return render_template('login.html', message=message)
+        return render_template('login.html', message=message)
+    else:
+        return search()
 
 @app.route('/register')
 def register():
@@ -120,7 +122,7 @@ def search():
 @app.route('/about')
 @if_logged_in
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title='about')
 
 @app.route('/my-profile')
 @if_logged_in
@@ -144,9 +146,9 @@ def update_profile():
 @app.route('/my-profile/delete', methods=['POST'])
 @if_logged_in
 def delete_profile():
-    if request.methods == 'POST':
+    if request.method == 'POST':
         user_email = session['email']
-        Database.delete_one({'email' : user_email})
+        Database.delete_one('profiles',{'email' : user_email})
     return logout()
 
 @app.route('/user-profile/', methods=["GET"])
