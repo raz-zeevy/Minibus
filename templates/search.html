@@ -5,8 +5,15 @@
     </div>
     <h1 class="cool-text text-center">חיפוש אנשים</h1>
     <form method="GET">
+        <div class="row">
+            <div class="col-1" style="padding:7px 5px">
+                <i id="search-help"  class="fas fa-info-circle fa-align-center" style="color:#0b515b"></i>
+            </div>
+            <div class="col-10" style="padding-right:0">
+                <input name="search_query" id="search-box" type="search" class="form-control" placeholder="חפש פרופיל">
+            </div>
+        </div>
         <div id="searchBox">
-            <input name="search_query" id="search-box" type="search" class="form-control" placeholder="חפש פרופיל">
             <input class="btn btn-info btn-lg" style="margin-top:2%" type="submit" value="חפש">
         </div>
     </form>
@@ -17,13 +24,13 @@
             <div class="col-4">
                 <div class="our-team">
                     <div class="picture">
-                        <img class="img-fluid" src="{{url_for('static',filename=user.image_location)}}">
+                        <img class="img-fluid" src="{{user.image_location}}">
                     </div>
                     <div class="team-content">
-                        <h4 class="name">{{user['full_name'] or "default"}}</h4>
-                        <h4 class="title">{{user['residence'] or "default"}}</h4>
-                        <h4 class="title">{{user['hashtags'] or "default"}}</h4>
-                        <h4 class="title">{{user['date_of_birth'] or "default"}}</h4>
+                        <h4 class="name">{{user['full_name'] or ""}}</h4>
+                        <h4 class="title">{{user['residence'] or ""}}</h4>
+                        <h4 class="title">{{user['hashtags'] or ""}}</h4>
+                        <h4 class="title">{{user['date_of_birth'] or ""}}</h4>
                     </div>
                     <ul class="social">
                         <li>
@@ -56,4 +63,5 @@
         console.log(display_users)
     }
 </script>
+<script src="{{ url_for('static',filename='js/search.js') }}"></script>
 {% endblock %}

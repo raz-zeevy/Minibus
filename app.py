@@ -1,13 +1,14 @@
 __author__ = 'Raz_Zeevy'
 
-from flask import Flask, render_template, redirect, flash
+from flask import Flask, render_template, redirect
 from flask import session, request, url_for
 from models.profile import Profile
 from common.db import Database
+from common.s3 import AWS
 import secrets, os, datetime
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-
 
 is_prod = os.environ.get('IS_HEROKU', None)
 
@@ -19,17 +20,26 @@ elif not is_prod:
     app.secret_key = secrets.token_hex()
     MONGO_URI = config.MONGO_URI
 
+UPLOAD_FOLDER = '/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 def parse_form(form_data):
     user_data = form_data
     for key in user_data:
         try:
             if isinstance(user_data[key],list):
                 if len(user_data[key]) < 2:
-                    user_data[key] = user_data[key][0]
+                    user_data[key] = user_data[key][0].strip()
                 else:
                     to_keep = False
-                    for item in user_data[key]:
+                    for i, item in enumerate(user_data[key]):
                         if len(item) > 0:
+                            user_data[key] = user_data[key][i].strip()
                             to_keep = True
                     if not to_keep:
                         user_data[key] = None
@@ -42,7 +52,6 @@ def if_logged_in(f):
         if session.get('email') is not None:
             return f(*args, **kwargs)
         else:
-            flash('You need to login first')
             return redirect(url_for('login'))
     wrap.__name__ = f.__name__
     return wrap
@@ -58,7 +67,7 @@ def initialize_database():
 @app.route('/', methods=['POST','GET'])
 @if_logged_in
 def index():
-     return redirect(url_for('search'))
+    return redirect(url_for('search'))
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -78,7 +87,7 @@ def login():
                 return render_template('login.html', message=message)
         return render_template('login.html', message=message)
     else:
-        return search()
+        return index()
 
 @app.route('/register')
 def register():
@@ -90,14 +99,24 @@ def register_submit():
     if request.method == 'POST':
         user_data = request.form.to_dict(flat=False)
         user_data = parse_form(user_data)
-        print(user_data)            
+        while 'image' in request.files:
+            file = request.files['image']
+            if file.filename == '':
+                break
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                # Here should be the Amazon Savings
+                AWS.initialize()    
+                image_location = AWS.upload(file_name=filename, file=file.read())
+                user_data['image_location'] = image_location
+                break 
         if Profile.register(user_data):
            return redirect(url_for('search'))
     return 'Error in Registerarion Form'
 
 @app.route('/search', methods=['GET'])
 @if_logged_in
-def search():
+def search(message = None):
     profiles = [Profile(**profile) for profile in Database.get_all_profiles()]
     matched_profiles = []
     search_query = request.args.get('search_query')
@@ -117,7 +136,7 @@ def search():
             if search_query in user_string:
                 matched_profiles.append(profile)
     search_results = [profile.json() for profile in matched_profiles]
-    return render_template('search.html', title="search", users=search_results)
+    return render_template('search.html', title="search", users=search_results, message=message)
 
 @app.route('/about')
 @if_logged_in
@@ -136,8 +155,7 @@ def update_profile():
     if request.method == 'POST':
         message = dict(
                 type ='Success',
-                content =  'פרטי הפרופיל עודכנו'
-            )
+                content =  'פרטי הפרופיל עודכנו')
         user_data = request.form.to_dict(flat=False)
         user_data = parse_form(user_data)
         Profile.update(user_data, session['email'])
@@ -148,8 +166,36 @@ def update_profile():
 def delete_profile():
     if request.method == 'POST':
         user_email = session['email']
+        former_image = Profile.data_from_email(session['email'])['image_location']
+        AWS.initialize()  
+        AWS.delete(file_name=former_image)
         Database.delete_one('profiles',{'email' : user_email})
     return logout()
+
+@app.route('/my-profile/update-image', methods=['POST'])
+@if_logged_in
+def update_image():
+    message = None
+    if request.method == 'POST':
+        former_image = Profile.data_from_email(session['email'])['image_location']
+        message = dict(
+            type ='Warning',
+            content =  'לא נבחרה אף תמונה')
+        while 'image' in request.files:
+            file = request.files['image']
+            if file.filename == '':
+                break
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                AWS.initialize()  
+                AWS.delete(file_name=former_image)
+                new_image_location = AWS.upload(file_name=filename, file=file.read())
+                Profile.update(email=session['email'], user_data={'image_location' : new_image_location})
+                message = dict(
+                   type ='Success',
+                    content =  'התמונה עודכנה בהצלחה')
+                break
+    return my_profile(message)
 
 @app.route('/user-profile/', methods=["GET"])
 @if_logged_in

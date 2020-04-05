@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import sys, os
 from common.db import Database
 import random
@@ -13,10 +13,10 @@ elif not is_prod:
     import env.config as config
     MONGO_URI = config.MONGO_URI
 
-default_image_locations = {'male' : 'images/male-profile-image.png',
-                               'female' : 'images/female-profile-image.png',
-                               'no-gender' : 'images/no-gender-profile-image.jpg',
-                                '' : 'images/no-gender-profile-image.jpg'}
+default_image_locations = {'male' : 'https://minibus-photos.s3.us-east-2.amazonaws.com/male-profile-image.png',
+                               'female' : 'https://minibus-photos.s3.us-east-2.amazonaws.com/female-profile-image.png',
+                               'no-gender' : 'https://minibus-photos.s3.us-east-2.amazonaws.com/no-gender-profile-image.jpg',
+                                '' : 'https://minibus-photos.s3.us-east-2.amazonaws.com/no-gender-profile-image.jpg'}
 
 class Profile():
     def __init__(self, full_name, email, password='123',
@@ -28,7 +28,7 @@ class Profile():
                  hobbies=None,
                  interes=None, hashtags=None, ready_to_asist=None, ways_to_asist=None,
                   _id=None, image_location=None,
-                 creation_date = datetime.datetime.now()):
+                 creation_date = None, last_update = None):
         self._id = full_name + str(random.randint(100,999)) if _id is None else _id
         self.full_name = str(full_name)
         self.email = email.lower()
@@ -52,7 +52,8 @@ class Profile():
         self.ready_to_asist = ready_to_asist
         self.ways_to_asist = ways_to_asist
         self.image_location = default_image_locations[gender] if image_location in [None,'']  else image_location
-        self.creation_date = creation_date
+        self.creation_date = datetime.now().strftime("%Y-%m-%d, %H:%M:%S") if creation_date is None else creation_date
+        self.last_update = self.creation_date if last_update is None else last_update
 
     def __repr__(self):
         return f"{self._id}-{self.full_name}"
@@ -60,7 +61,6 @@ class Profile():
     def json(self):
         json = self.__dict__.copy() 
         del json['password']
-        json['creation_date'] = self.creation_date.strftime("%m/%d/%Y, %H:%M:%S")
         return json
         # return dict(
         #     _id = self._id,
@@ -86,8 +86,19 @@ class Profile():
             
     @staticmethod
     def update(user_data, email):
-        Database.update_one('profiles',{'email' : email}, user_data) 
+        data = user_data
+        data['last_update'] = datetime.now()
+        data['last_update'] = data['last_update'].strftime("%Y-%m-%d, %H:%M:%S")
+        Database.update_one('profiles',{'email' : email}, data) 
     
+    @staticmethod
+    def check_last_update(email):
+        last_update = Database.DATABASE['profiles'].find_one({'email' : email},{'last_update' : 1})['last_update']
+        dif = datetime.now() - datetime.strptime(last_update,"%Y-%m-%d, %H:%M:%S")
+        print(dif.days);
+        if dif.days >= 180: return False 
+        else: return True
+        
     @classmethod
     def from_id(cls, id):
         data = Database.find_one('profiles',{'_id' : id})
@@ -99,7 +110,13 @@ class Profile():
         data = Database.find_one('profiles',{'email' : email})
         if data is not None:
             return cls(**data)
-
+    
+    @staticmethod
+    def data_from_email(email):
+        data = Database.find_one('profiles',{'email' : email})
+        if data is not None:
+            return data
+                
     @classmethod
     def register(cls, user_data):
         email = user_data['email']
@@ -107,7 +124,7 @@ class Profile():
         if profile is None:
             new_profile = cls(**user_data)
             new_profile.save_to_database()
-            new_profile.login(email)
+            new_profile.login(email,False)
             return True
         else:
             return False
@@ -124,19 +141,26 @@ class Profile():
         return False
 
     @staticmethod
-    def login(email):
+    def login(email,check_update=True):
         session['email'] = email
         print(f"{session['email']} LOGED IN")
+        if check_update:
+            if not Profile.check_last_update(email):
+                session['message'] = 'update_required'
+                print(session['message'])
         return True
 
     @staticmethod
     def logout():
-        session['email'] = None
+        session.pop('email')
+        if session.get('message') is not None:
+            session.pop('message')
 
 if __name__ == '__main__':
     Database.initialize(MONGO_URI)
-    a = Database.get_all_profiles()
-    b = a[0]
-    user = Profile(**b)
-    # print(user)
-    print("asdasd/'".punctuation())
+    a = Database.find_one('profiles',{'email' : 'herzl-2@hotmail.com'})
+    user = Profile(**a)
+    user.check_last_update(user.email)
+    # user_data = user.json().copy()
+    # user_data['creation_date'] = '2018-09-19, 13:55:26'
+    # Profile.update(user_data,user.email)

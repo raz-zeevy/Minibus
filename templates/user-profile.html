@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
 <div class="form text-center">
-  <img src="{{url_for('static',filename=profile.image_location)}}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
+  <img src="{{ profile.image_location }}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
   <h1 class="display-4 text-center">{{profile.full_name}}</h1>
   <div class="tab">
     <h3 class="cool-text">פרטי יצירת קשר</h3>

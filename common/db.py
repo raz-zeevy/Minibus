@@ -42,14 +42,16 @@ class Database(object):
 
     @staticmethod
     def update_one(collection, query, new_values):
-        Database.DATABASE[collection].update_one(query,{ "$set" : new_values})
+        request = Database.DATABASE[collection].update_one(query,{ "$set" : new_values})
         print(f"'{list(new_values.keys())[0]}' of '{list(query.values())[0]}' --> {list(new_values.values())[0]}")
-
+        return request 
+    
     @staticmethod
     def update(collection, query, new_values):
         ids =  Database.DATABASE[collection].find(query,{'_id' : 1})
         for id in ids:
-            Database.update_one(collection, {'_id' : id}, new_values)
+            id = id['_id']
+            request = Database.update_one(collection, {'_id' : id}, new_values)
         print(f"{ids.count()} rows: '{list(new_values.keys())[0]}' --> {list(new_values.values())[0]}")
 
     @staticmethod
@@ -80,5 +82,7 @@ class Database(object):
     
 if __name__ == '__main__':
     Database.initialize(MONGO_URI)
-    data = {'phone_number' : '0544663407'}
-    Database.insert_incremented('approved_phones',data)
+    Database.update('profiles',{'image_location' : 'https://minibus-photos.s3.us-east-2.amazonaws.com/images/female-profile-image.png'},
+                                {'image_location' : 'https://minibus-photos.s3.us-east-2.amazonaws.com/female-profile-image.png'})
+    # data = {'phone_number' : '0544663407'}
+    # Database.insert_incremented('approved_phones',data)

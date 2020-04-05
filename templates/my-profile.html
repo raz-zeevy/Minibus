@@ -7,6 +7,9 @@
         <span id="options" class="fas fa-ellipsis-v" style="float:right;padding:10px"></span>
         <div id="more-options" style="position:absolute;top:-10px;right:60px">
             <form id="delete-form" action="/my-profile/delete" method="POST"></form>
+            <form id="image-form" action="/my-profile/update-image" method="POST">
+                <input id="image-input"  type="file" name="image" accept="image/png, image/jpeg, image/gif" style="display: none;"/>
+            </form>
             <ul class="more-options" style="list-style: none;">
             <li>
                 <button id="options-edit" class="more-option" value="edit">
@@ -15,14 +18,20 @@
                 </button>
             </li>
             <li>
-                <button id="delete-profile" class="more-option" style="width=100%" value="edit">
+                <button id="replace-image" class="more-option" style="width:100%" value="edit">
+                    <i style="" class="fas fa-camera"></i>
+                    החלף תמונה
+                </button>
+            </li>
+            <li>
+                <button id="delete-profile" class="more-option" style="width:100%" value="edit">
                     <i style="color:hsl(344, 100%, 54%)" class="fas fa-user-slash"></i>
                     מחק פרופיל
                 </button>
             </li>
             </ul>
         </div>
-        <img src="{{url_for('static',filename=profile.image_location)}}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
+        <img src="{{ profile.image_location }}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
         <h1 class="display-4 text-center">{{profile.full_name}}</h1>
         <div id="control-changes" style="overflow:auto">
             <div id="cancle" style="float:left;">

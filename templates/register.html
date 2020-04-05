@@ -3,10 +3,11 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}"> {% endblock %} {% block content %}
 <div class="container">
     <div class="form text-right">
-        <form id="regForm" action="/register/submit" METHOD="POST">
+        <form  enctype="multipart/form-data" id="regForm" action="/register/submit" METHOD="POST">
             <h1 class="cool-text text-center">הרשמה לרשת בוגרים</h1>
             <hr>
             <!-- One "tab" for each step in the form: -->
+
             <div class="tab">
                 <h3 class="cool-text">פרטי התחברות</h3>
                 <div class="row">
@@ -46,6 +47,12 @@
                         <select type="text" class="form-control crucial-input" name="gender">
           <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
         </select>
+                    </div>
+                </div>
+                <h3 class="cool-text">להעלות תמונה</h3>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" name="image" accept="image/png, image/jpeg, image/gif"/>
                     </div>
                 </div>
             </div>
@@ -154,6 +161,7 @@
                     </div>
                 </div>
             </div>
+
             <button class="btn btn-dark" type="button" id="prevBtn" onclick="nextPrev(-1)">הקודם</button>
             <button class="btn btn-info" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
             <!-- Circles which indicates the steps of the form: -->
@@ -168,7 +176,10 @@
         </form>
     </div>
 </div>
-<script>const approvedPhones = "{{ approved_phones|join(',') }}";</script>
+<script>
+    const approvedPhones = "{{ approved_phones|join(',') }}";
+</script>
+
 <script src="{{url_for('static',filename='js/phone-parser.js')}}"></script>
 <script src="{{url_for('static',filename='js/register.js')}}"></script>
 <script src="{{url_for('static',filename='js/add-rows.js')}}"></script>

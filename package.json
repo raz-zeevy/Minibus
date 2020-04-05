@@ -9,6 +9,7 @@
   "author": "Raz Zeevy",
   "license": "ISC",
   "dependencies": {
+    "filepond": "^4.13.0",
     "mcx-dialog-mobile": "^0.2.0",
     "notiflix": "^2.1.2"
   }
