@@ -1,11 +1,3 @@
-// const inputElement = document.querySelector('input[type="file"]');
-// const pond = FilePond.create(inputElement,{
-//     'maxFiles' : 1,
-//     'labelIdle': `תעלה תמונה`,
-//     'imageResizeTargetWidth': 240,
-//     'imageResizeTargetHeight': 480,
-//     });
-
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -56,7 +48,7 @@ function validateForm() {
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
     x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByClassName("2crucial-input");
+    y = x[currentTab].getElementsByClassName("crucial-input");
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         // If a field is empty...
