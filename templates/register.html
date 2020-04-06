@@ -45,16 +45,19 @@
                     <div class="col-6">
                         <span class="small">מגדר</span>
                         <select type="text" class="form-control crucial-input" name="gender">
-          <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
-        </select>
+                            <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
+                        </select>
                     </div>
                 </div>
-                <h3 class="cool-text">להעלות תמונה</h3>
-                <div class="row">
-                    <div class="col">
-                        <input type="file" name="image" accept="image/png, image/jpeg, image/gif"/>
+                <h3 class="cool-text">להעלות תמונת פרופיל</h3>
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="upload-btn-wrapper" style="margin:auto">
+                                <button class="btn btn-light">בחירת תמונה</button>
+                                <input class="btn-light" type="file" name="image" accept="image/png, image/jpeg, image/gif"/>
+                              </div>
+                        </div>
                     </div>
-                </div>
             </div>
 
             <div class="tab text-right">
@@ -163,7 +166,7 @@
             </div>
 
             <button class="btn btn-dark" type="button" id="prevBtn" onclick="nextPrev(-1)">הקודם</button>
-            <button class="btn btn-info" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
+            <button class="btn btn-success" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
             <!-- Circles which indicates the steps of the form: -->
             <div style="text-align:center;margin-top:40px;">
                 <span class="step"></span>

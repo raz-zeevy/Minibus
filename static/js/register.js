@@ -13,10 +13,10 @@ function showTab(n) {
     }
     if (n == (x.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "שלח";
-        document.getElementById("nextBtn").className = "btn btn-info btn-lg";
+        document.getElementById("nextBtn").className = "btn btn-success btn-lg";
     } else {
         document.getElementById("nextBtn").innerHTML = "הבא";
-        document.getElementById("nextBtn").className = "btn btn-info";
+        document.getElementById("nextBtn").className = "btn btn-success";
     }
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)

@@ -199,7 +199,7 @@
         className: 'notiflix-loading',
         zindex: 4000,
         backgroundColor: 'rgba(0,0,0,0.8)',
-        rtl: true,
+        rtl: false,
         useGoogleFont: true,
         fontFamily: 'Quicksand',
         cssAnimation: true,

@@ -4,24 +4,22 @@ from botocore.client import Config
 import uuid
 import os.path
 
-is_prod = os.environ.get('IS_HEROKU',False)
-
-if is_prod:
-    aws_access_key_id = os.environ.get('AWS_ID')
-    aws_secret_access_key = os.environ.get('AWS_KEY')
-    aws_secret_access_key = os.environ.get('AWS_REGION')
-else:
-    from env.config import AWS_ID, AWS_KEY, AWS_REGION
-    aws_access_key_id = AWS_ID
-    aws_secret_access_key = AWS_KEY
-    region= AWS_REGION
-
 class AWS(object):
     bucket = 'minibus-photos'
     s3 = None
     
     @classmethod
     def initialize(cls):
+        if os.environ.get('IS_HEROKU',False):
+            aws_access_key_id = os.environ.get('AWS_ID')
+            aws_secret_access_key = os.environ.get('AWS_KEY')
+            aws_secret_access_key = os.environ.get('AWS_REGION')
+        else:
+            from env.config import AWS_ID, AWS_KEY, AWS_REGION
+            aws_access_key_id = AWS_ID
+            aws_secret_access_key = AWS_KEY
+            region= AWS_REGION
+            
         s3 = boto3.resource('s3', aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_KEY, region_name=region)
         cls.s3 = s3.Bucket(cls.bucket)
         

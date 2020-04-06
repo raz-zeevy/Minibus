@@ -3,6 +3,20 @@ input[type="date"]{
   padding:0;
 }
 
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
 .col-6,.col-5,.col-1{
   padding: 0px 2px;
   padding-right:5px;
@@ -44,5 +58,5 @@ text-align: center;
 }
 
 .step.finish {
-  background-color: #17a2b8;
+  background-color: #138b27;
 }

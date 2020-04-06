@@ -1,4 +1,3 @@
-console.log(profile);
 function loadRows(displayAll = false){
     buildAutoRows();
     displayRows(displayAll);

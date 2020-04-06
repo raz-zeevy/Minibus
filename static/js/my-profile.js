@@ -2,7 +2,7 @@ togleEditOff(true);
 loadRows(false);
 $('#control-changes').hide();
 $('.fa-plus-circle').hide();
-var imageInput = document.getElementById('image-input');
+var imageInput = document.querySelector('input[type=file]');
 
 $(document).on('click', function(e) {
     if (e.target.id === 'options') {
@@ -41,7 +41,7 @@ $('#replace-image').click(function(e){
     imageInput.click();
 })
 
-document.getElementById('image-input').addEventListener('change', function(e){
+imageInput.addEventListener('change', function(e){
     if (imageInput.files.length > 1) {
         Notiflix.Notify.Failure('יש לבחור תמונה אחת בלבד');
         imageInput.files = null;
@@ -53,9 +53,7 @@ document.getElementById('image-input').addEventListener('change', function(e){
                 Notiflix.Notify.Failure('התמונה שבחרת גדולה מדי, נא לבחור תמונות שגודלן לא עולה על 10MB');
                 imageInput.files = null;
             } else{
-                console.log("Input: ",imageInput.files);
                 document.getElementById("image-form").submit();
-                console.log("Form: ",$("#image-form").serializeArray());
             }
         }else{
             Notiflix.Notify.Failure('התמונה שבחרת לא בפורמט נתמך');
@@ -63,6 +61,10 @@ document.getElementById('image-input').addEventListener('change', function(e){
         }
     }
 })
+
+document.getElementById("image-form").onchange = function(e){
+    console.log(e)
+};
 
 $('#delete-profile').click(function(e){
     if (profile['gender'] == 'male'){

@@ -27,7 +27,7 @@ body {
     margin: 0;
     padding: 0;
     direction: rtl;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(23, 162, 184, 0.2)), url(../images/bg-white.png);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(140, 199, 171, 0.5)), url(../images/bg-white.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -93,12 +93,12 @@ input {
     font-size: 20px;
 }
 
-.active {
-    color: darkgrey;
+a.ddisabled {
+    color:rgb(70, 70, 70)
 }
 
 .nav-link {
-    color: white
+    color: white;
 }
 
 .nav-link span {

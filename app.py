@@ -178,6 +178,8 @@ def update_image():
     message = None
     if request.method == 'POST':
         former_image = Profile.data_from_email(session['email'])['image_location']
+        file_index = former_image.rfind('/')
+        former_image = former_image[file_index+1:]
         message = dict(
             type ='Warning',
             content =  'לא נבחרה אף תמונה')
@@ -188,7 +190,8 @@ def update_image():
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 AWS.initialize()  
-                AWS.delete(file_name=former_image)
+                print(former_image)
+                AWS.delete(file_key=former_image)
                 new_image_location = AWS.upload(file_name=filename, file=file.read())
                 Profile.update(email=session['email'], user_data={'image_location' : new_image_location})
                 message = dict(

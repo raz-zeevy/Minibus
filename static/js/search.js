@@ -1,6 +1,6 @@
 $(document).on('click', function(e){
     if (e.target.id === 'search-help'){
-        Notflix.Report.Info('מה אפשר לחפש?',
+        Notiflix.Report.Info('מה אפשר לחפש?',
         `
         החיפוש רץ על <b>כל</b> פריט מידע שמופיע בפרופיל. <br>
         למשל, בשביל להגיע ל<b> בנימין זאב הרצל </b> אפשר:<br>

@@ -93,9 +93,8 @@ class Profile():
     
     @staticmethod
     def check_last_update(email):
-        last_update = Database.DATABASE['profiles'].find_one({'email' : email},{'last_update' : 1})['last_update']
+        last_update = Database.DATABASE['profiles'].find_one({'email' : email})['last_update']
         dif = datetime.now() - datetime.strptime(last_update,"%Y-%m-%d, %H:%M:%S")
-        print(dif.days);
         if dif.days >= 180: return False 
         else: return True
         
@@ -127,6 +126,7 @@ class Profile():
             new_profile.login(email,False)
             return True
         else:
+            print("Profile already exists")
             return False
 
     @classmethod
