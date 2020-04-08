@@ -55,9 +55,12 @@ class Database(object):
         print(f"{ids.count()} rows: '{list(new_values.keys())[0]}' --> {list(new_values.values())[0]}")
 
     @staticmethod
-    def get_all_profiles():
-        profiles_data = [row for row in Database.find('profiles',{})]
-        return profiles_data
+    def load_search_data():
+        data =  Database.DATABASE['profiles'].find({},{'_id' : 1, 'full_name' : 1,
+                                                      'image_location' : 1,
+                                                      'date_of_birth' : 1,'residence':1,
+                                                      'phone_number' : 1, 'hashtags':1})
+        return [row for row in data]
 
     @staticmethod
     def get_approved_phones():
@@ -79,6 +82,10 @@ class Database(object):
         else:
             print('something might be wrong with the insert query')
             return False
+    
+    def search_text(collection, query, ids_only=True):
+        res = Database.DATABASE[collection].find({ '$text' : { '$search' : query}})
+        return set([item['_id'] for item in res])
     
 if __name__ == '__main__':
     Database.initialize(MONGO_URI)

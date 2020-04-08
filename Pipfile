@@ -17,6 +17,8 @@ werkzeug = "==1.0.0"
 Flask-PyMongo = "==2.3.0"
 gunicorn = "*"
 boto3 = "*"
+pillow = "*"
+image = "*"
 
 [requires]
 python_version = "3.7"

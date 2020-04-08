@@ -11,3 +11,7 @@ $(document).on('click', function(e){
         'הבנתי');
     }
 })
+
+$('#search-profile').on('submit', function(e){
+    Notiflix.Loading.Dots();
+});

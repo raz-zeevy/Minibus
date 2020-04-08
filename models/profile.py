@@ -82,7 +82,8 @@ class Profile():
         # )
 
     def save_to_database(self):
-        Database.insert('profiles',self.__dict__)
+        user_data = self.__dict__.copy()
+        Database.insert('profiles',user_data)
             
     @staticmethod
     def update(user_data, email):
@@ -156,11 +157,24 @@ class Profile():
         if session.get('message') is not None:
             session.pop('message')
 
+    @staticmethod
+    def find_matched(query):
+        matched_profiles = None
+        query_keys = query.split(" ")
+        for key in query_keys:
+            results = Database.search_text('profiles',key,ids_only=True)
+            if matched_profiles is None:
+                matched_profiles = results
+            else:
+                matched_profiles = matched_profiles.intersection(results)
+        return matched_profiles
+        
 if __name__ == '__main__':
     Database.initialize(MONGO_URI)
-    a = Database.find_one('profiles',{'email' : 'herzl-2@hotmail.com'})
-    user = Profile(**a)
-    user.check_last_update(user.email)
+    # a = Database.find_one('profiles',{'email' : 'herzl-2@hotmail.com'})
+    # user = Profile(**a)
+    # user.check_last_update(user.email)
+    Profile.find_matched('אלפי מנשה 1996')
     # user_data = user.json().copy()
     # user_data['creation_date'] = '2018-09-19, 13:55:26'
     # Profile.update(user_data,user.email)

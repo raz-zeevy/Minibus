@@ -107,7 +107,7 @@ def register_submit():
                 filename = secure_filename(file.filename)
                 # Here should be the Amazon Savings
                 AWS.initialize()    
-                image_location = AWS.upload(file_name=filename, file=file.read())
+                image_location = AWS.upload(file_name=filename, file=file)
                 user_data['image_location'] = image_location
                 break 
         if Profile.register(user_data):
@@ -117,25 +117,17 @@ def register_submit():
 @app.route('/search', methods=['GET'])
 @if_logged_in
 def search(message = None):
-    profiles = [Profile(**profile) for profile in Database.get_all_profiles()]
-    matched_profiles = []
-    search_query = request.args.get('search_query')
-    if search_query is not None:
-        if is_prod:
-            search_data = dict(time=datetime.datetime.now(),user=session['email'],string=search_query)
-            Database.insert('searches',search_data)
-        for profile in profiles:
-            user_string = ''
-            for value in profile.json().values():
-                if isinstance(value,list):
-                    user_string+=','.join(value)
-                elif isinstance(value,(str,int,float)):
-                    user_string+=str(value)
-                else:
-                    print("I won't try to search",value)
-            if search_query in user_string:
-                matched_profiles.append(profile)
-    search_results = [profile.json() for profile in matched_profiles]
+    search_results = []
+    if request.method == 'GET':
+        search_query = request.args.get('search_query')
+        if search_query is not None:
+            if is_prod:
+                search_data = dict(time=datetime.datetime.now(),user=session['email'],string=search_query)
+                Database.insert('searches',search_data)
+            matched_ids = Profile.find_matched(search_query)
+            search_results = [Profile.from_id(id).json() for id in matched_ids]
+        else:
+            search_results = Database.load_search_data()
     return render_template('search.html', title="search", users=search_results, message=message)
 
 @app.route('/about')
@@ -192,7 +184,7 @@ def update_image():
                 AWS.initialize()  
                 print(former_image)
                 AWS.delete(file_key=former_image)
-                new_image_location = AWS.upload(file_name=filename, file=file.read())
+                new_image_location = AWS.upload(file_name=filename, file=file)
                 Profile.update(email=session['email'], user_data={'image_location' : new_image_location})
                 message = dict(
                    type ='Success',
