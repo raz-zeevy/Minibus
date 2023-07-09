@@ -30,7 +30,7 @@ The Minibus Social Network offers the following key features:
 
 1. User Profiles: Users can create and customize their profiles, including profile pictures and personal information.
 2. Search Functionality: Users can search for other alumni based on common interests or specific criteria.
-3. Messaging System: Users can send messages to other users within the network to initiate conversations.
+3. Connectivity:Users can send messages to one another through whatsApp or SMS by 1 click from a link in the profile.
 4. Authentication and Authorization: The website provides secure user authentication and authorization mechanisms.
 5. Responsive Design: The website is designed to be responsive, ensuring a seamless experience across different devices.
 
