@@ -7,9 +7,7 @@ Welcome to the Minibus Social Network repository! This repository contains the s
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Features](#features)
-- [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Overview
