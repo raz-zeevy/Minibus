@@ -1,0 +1,190 @@
+{% extends "base.html" %} {% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/form.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}"> {% endblock %} {% block content %}
+<div class="container">
+    <div class="form text-right">
+        <form  enctype="multipart/form-data" id="regForm" action="/register/submit" METHOD="POST">
+            <h1 class="cool-text text-center">הרשמה לרשת בוגרים</h1>
+            <hr>
+            <!-- One "tab" for each step in the form: -->
+
+            <div class="tab">
+                <h3 class="cool-text">פרטי התחברות</h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <span class="small">אימייל</span>
+                        <input type="text" class="form-control crucial-input" placeholder="" name="email">
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <span class="small">קוד כניסה (ספרות בלבד)</span>
+                        <input type="tel" class="form-control crucial-input" placeholder="" name="password">
+                    </div>
+                </div>
+                <h3 class="cool-text">פרטים אישיים</h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <span class="small">שם מלא</span>
+                        <input type="text" class="form-control crucial-input" placeholder="" name="full_name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="small">מספר טלפון</span>
+                        <input id="phone-input" type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
+                    </div>
+                    <div class="col-6">
+                        <span class="small">תאריך לידה</span>
+                        <input type="date" placeholder="תאריך לידה:" class="form-control crucial-input" min="1980" max="2002" step="1" name="date_of_birth">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="small">ישוב</span>
+                        <input type="text" placeholder="ישוב" class="form-control crucial-input" name="residence">
+                    </div>
+                    <div class="col-6">
+                        <span class="small">מגדר</span>
+                        <select type="text" class="form-control crucial-input" name="gender">
+                            <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
+                        </select>
+                    </div>
+                </div>
+                <h3 class="cool-text">להעלות תמונת פרופיל</h3>
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="upload-btn-wrapper" style="margin:auto">
+                                <button class="btn btn-light">בחירת תמונה</button>
+                                <input class="btn-light" type="file" name="image" accept="image/png, image/jpeg, image/gif"/>
+                              </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="tab text-right">
+                <h3 class="cool-text">מסגרות</h3>
+                <span class="small">כדאי לציין רמת מעורבות ואם שמרתי על קשר</span>
+                <div class="row">
+                    <div class="col">
+                        <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
+                        <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
+                    </div>
+                </div>
+                <h3 class="cool-text">שירות צבאי</h3>
+                <div id="army">
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control" placeholder="יחידה" name="inst_army">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="תפקיד" name="army">
+                        </div>
+                        <div id="add-army" class="col-1 text-center">
+                            <span id="add-army" style="color:0e606d;" class="fas fa-plus-circle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">מסגרות נוספות:</label>
+                        <input type="text" class="form-control" placeholder="" name="more_frames">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <h3 class="cool-text">השכלה ותעסוקה</h3>
+                <div id="education">
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control" placeholder="מוסד" name="inst_education">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="תואר,תחום,תעודה" name="education">
+                        </div>
+                        <div id="add-degree" class="col-1 text-center">
+                            <span id="add-degree" style="color:0e606d;" class="fas fa-plus-circle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="positions">
+                    <div class="row">
+                        <div class="col-5">
+                            <input type="text" class="form-control" placeholder="ארגון" name="inst_job">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="תפקיד" name="job">
+                        </div>
+                        <div id="add-position" class="col-1 text-center">
+                            <span id="add-position" style="color:0e606d;" class="fas fa-plus-circle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="עוד" name="education_work_more">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab text-right">
+                <h3 class="cool-text">קצת על עצמי</h3>
+                <div class="row">
+                    <div class="col">
+                        <label for="">:תחביבים ותחומי עניין</label>
+                        <input type="text" class="form-control" placeholder="כל מה שאתם אוהבים לעשות ויש לכם בו איזשהו ניסיון" name="hobbies">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">:דברים שנותנים לי השראה</label>
+                        <input type="text" class="form-control" placeholder="עובדות לא חשובות בפייסבוק, הרצאות טד של ג'ון לה קרה" name="interes">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">#מילות_מפתח</label>
+                        <input type="text" class="form-control" placeholder="#צופים #כושר #ספרדית" name="hashtags">
+                        <span class="small">תגיות אלו יסמנו מתי להקפיץ את הפרופיל שלכם</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <h3 class="cool-text">איך אוכל לעזור?</h3>
+                <div class="row">
+                    <div class="col">
+                        <label for="">מוזמנים להתייעץ איתי לגבי...</label>
+                        <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="">דרכים נוספות שאפשר להעזר בי:</label>
+                        <input type="text" class="form-control" placeholder="" name="ways_to_asist">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-dark" type="button" id="prevBtn" onclick="nextPrev(-1)">הקודם</button>
+            <button class="btn btn-success" type="button" id="nextBtn" onclick="nextPrev(1)">הבא</button>
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    const approvedPhones = "{{ approved_phones|join(',') }}";
+</script>
+
+<script src="{{url_for('static',filename='js/phone-parser.js')}}"></script>
+<script src="{{url_for('static',filename='js/register.js')}}"></script>
+<script src="{{url_for('static',filename='js/add-rows.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon"  href="{{ url_for('static',filename='images/favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static',filename='images/apple-touch-icon-76x76.png') }}">
+    <title>Minibus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='notiflix/dist/Unminified/notiflix-2.1.2.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min (4).css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+    <script src="{{ url_for('static', filename='notiflix/dist/Unminified/notiflix-2.1.2.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <title>{{ title }}</title>
+    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-success" style="padding-left:12px;{% if session.get('email') %}opacity: 0.5; shadow-box:none;-moz-box-shadow:none;-webkit-box-shadow:none;{% endif %}">
+        </button>
+        <a class="navbar-brand" href="/search">
+            <img class="navbarLogo" src="{{url_for('static',filename='images/minibus-logo.jpg')}}" alt="">
+        </a>
+    </nav>
+    {% block head %} {% endblock %}
+</head>
+
+<body>
+    {% if session.get('message') %}
+    <script>
+        sessionMessage = "{{ session['message'] }}";
+        if (sessionMessage == "update_required"){
+            var messageContent = 'עבר מעל חצי שנה מאז הפעם האחרונה בה עדכנת את הפרופיל, ומשתמשים אחרים ישמחו לראות מה השתנה בחיים שלך.'
+            Notiflix.Report.Info('לא עדכנת את החשבון הרבה זמן',messageContent,'עדכן עכשיו',function(){
+                window.location.href = '/my-profile';
+            });
+        } 
+    {{ session.pop('message',None) }}
+    </script>
+    {% endif %}
+    {% if message %}
+    <script>
+        Notiflix.Notify.{{message['type']}}("{{message['content']}}");
+    </script>
+    {% endif %}
+    <section>
+        {% block content %} {% endblock %}
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+{% if session.get('email') != None %}
+<nav class="navbar fixed-bottom bg-success">
+    <ul class="nav mx-auto bottom-navbar" style="padding-inline-start:0px;">
+        <li class="nav-item active" id="navbar-icon">
+            <a class="nav-link fa fa-address-card {% if title=='my-profile' %} ddisabled {% endif %}" href="/my-profile" active><span style="display: block;">פרופיל</span></a>
+        </li>
+        <li class="nav-item active" id="navbar-icon">
+            <a style="display:block" class="nav-link fas fa-search{% if title == 'search' %} ddisabled {% endif %}" href="/search"><span style="display: block;">חיפוש</span></a>
+        </li>
+        <li class="nav-item" id="navbar-icon">
+            <a class="nav-link fa fa-info-circle {% if title == 'about' %} ddisabled {% endif %}" href="/about"><span style="display: block;">אודות</span></a>
+        </li>
+        <li class="nav-item">
+            <a id="logout-button" class="nav-link fas fa-sign-out-alt" href="/logout" style="color: #555555;"><span style="display: block;columns: #555555;;">התנתק</span></a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+<script>
+    $('body').on('click', function(e){
+        if (e.target.id=='logout-button'){
+            Notiflix.Loading.Dots();
+        }
+    })
+</script>
+<script src="{{url_for('static',filename='js/app.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</html>

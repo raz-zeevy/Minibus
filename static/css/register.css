@@ -1,0 +1,62 @@
+input[type="date"]{
+  text-align: center;
+  padding:0;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.col-6,.col-5,.col-1{
+  padding: 0px 2px;
+  padding-right:5px;
+}
+
+button[type="button"]{
+  margin-right: 2%;
+}
+
+input.invalid {
+  background-color: #ffdddd;
+}
+
+h3{
+text-align: center;
+}
+
+.tab {
+  display: none;
+}
+
+.col{
+  margin-top:1%;
+}
+
+.step {
+  height: 26px;
+  width: 26px;
+  margin: 0 4px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.finish {
+  background-color: #138b27;
+}

@@ -1,0 +1,170 @@
+{% extends "base.html" %} {% block head %}
+<title>{{profile.full_name}}</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/form.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/my-profile.css') }}"> {% endblock %} {% block content %}
+<div class="container">
+    <div class="form text-center">
+        <span id="options" class="fas fa-ellipsis-v" style="float:right;padding:10px"></span>
+        <div id="more-options" style="position:absolute;top:-10px;right:60px">
+            <form id="delete-form" action="/my-profile/delete" method="POST"></form>
+            <form id="image-form" enctype="multipart/form-data" action="/my-profile/update-image" method="POST" style="display:none">
+                <input class="btn-light" type="file" name="image" accept="image/png, image/jpeg, image/gif">
+            </form>
+            <ul class="more-options" style="list-style: none;">
+            <li>
+                <button id="options-edit" class="more-option" value="edit">
+                    <i style="" class="fa fa-edit"></i>
+                    ערוך פרופיל
+                </button>
+            </li>
+            <li>
+                <button id="replace-image" class="more-option" style="width:100%" value="edit">
+                    <i style="" class="fas fa-camera"></i>
+                    החלף תמונה
+                </button>
+            </li>
+            <li>
+                <button id="delete-profile" class="more-option" style="width:100%" value="edit">
+                    <i style="color:hsl(344, 100%, 54%)" class="fas fa-user-slash"></i>
+                    מחק פרופיל
+                </button>
+            </li>
+            </ul>
+        </div>
+        <img src="{{ profile.image_location }}" alt="{{profile.full_name}}" style="float:left;max-width:25%;height:auto">
+        <h1 class="display-4 text-center">{{profile.full_name}}</h1>
+        <div id="control-changes" style="overflow:auto">
+            <div id="cancle" style="float:left;">
+                <span id="cancle-changes">
+                    <i id="cancle-changes-logo" class="far fa-times-circle change-control-icon" style="display:block"></i>
+                    ביטול
+                </span>
+            </div>
+            <div id="save">
+                <span id="save-changes">
+                    <i id="save-changes-logo" class="far fa-check-circle change-control-icon" style="display:block"></i>
+                    שמור<br>שינויים
+                </span>
+            </div>           
+        </div>
+    <form id="my-profile" method="POST" action="/my-profile/update">
+        <div class="tab">
+            <h3 class="cool-text">פרטי התחברות</h3>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <span class="small">אימייל</span>
+                    <input type="text" class="form-control crucial-input" placeholder="" name="email">
+                </div>
+            </div>
+            <h3 class="cool-text">פרטים אישיים</h3>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <span class="small">שם מלא</span>
+                    <input type="text" class="form-control crucial-input" placeholder="" name="full_name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <span class="small">מספר טלפון</span>
+                    <input type="tel" class="form-control crucial-input" placeholder="052-222-2222" name="phone_number">
+                </div>
+                <div class="col-6">
+                    <span class="small">תאריך לידה</span>
+                    <input type="date" placeholder="תאריך לידה:" class="form-control crucial-input" min="1980" max="2002" step="1" name="date_of_birth">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <span class="small">ישוב</span>
+                    <input type="text" placeholder="ישוב" class="form-control crucial-input" name="residence">
+                </div>
+                <div class="col-6">
+                    <span class="small">מגדר</span>
+                    <select type="text" class="form-control crucial-input" name="gender">
+      <option value="male" selected>זכר</option><option value="female">נקבה</option><option value="undefined">לא מוגדר</option>
+    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab text-right">
+            <h3 class="cool-text">מסגרות</h3>
+            <span class="small">כדאי לציין רמת מעורבות ואם שמרתי על קשר</span>
+            <div class="row">
+                <div class="col">
+                    <label for="">:מסגרות שלקחתי בהן חלק לפני הצבא</label>
+                    <input type="text" class="form-control" placeholder="מכינה, שנת שירות, מדרשה ועוד" name="pre_army">
+                </div>
+            </div>
+            <h3 class="cool-text">שירות צבאי</h3>
+            <div id="army">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="">מסגרות נוספות:</label>
+                    <input type="text" class="form-control" placeholder="" name="more_frames">
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3 class="cool-text">השכלה ותעסוקה</h3>
+            <div id="education">
+            </div>
+            <div id="positions">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="עוד" name="education_work_more">
+                </div>
+            </div>
+        </div>
+
+        <div class="tab text-right">
+            <h3 class="cool-text">קצת על עצמי</h3>
+            <div class="row">
+                <div class="col">
+                    <label for="">:תחביבים ותחומי עניין</label>
+                    <input type="text" class="form-control" placeholder="כל מה שאתם אוהבים לעשות ויש לכם בו איזשהו ניסיון" name="hobbies">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="">:דברים שנותנים לי השראה</label>
+                    <input type="text" class="form-control" placeholder="עובדות לא חשובות בפייסבוק, הרצאות טד של ג'ון לה קרה" name="interes">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="">#מילות_מפתח</label>
+                    <input type="text" class="form-control" placeholder="#צופים #כושר #ספרדית" name="hashtags">
+                    <span class="small">תגיות אלו יסמנו מתי להקפיץ את הפרופיל שלכם</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3 class="cool-text">איך אוכל לעזור?</h3>
+            <div class="row">
+                <div class="col">
+                    <label for="">מוזמנים להתייעץ איתי לגבי...</label>
+                    <input type="text" class="form-control" placeholder="" name="ready_to_asist">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="">דרכים נוספות שאפשר להעזר בי:</label>
+                    <input type="text" class="form-control" placeholder="" name="ways_to_asist">
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var profile = {{profile.json()|tojson()}};
+</script>
+<script src="{{url_for('static',filename='js/display-rows.js')}}"></script>
+<script src="{{url_for('static',filename='js/my-profile.js')}}"></script>
+<script src="{{url_for('static',filename='js/add-rows.js')}}"></script>
+{% endblock %}

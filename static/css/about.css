@@ -1,0 +1,98 @@
+.about-box{
+  color:black;
+  background: rgba(254,254,254,0.4);
+}
+
+body{
+  /* background-image:
+      linear-gradient(rgba(0, 34, 76, 0.8), rgba(0, 34, 76, 0.8)),
+      url({{url_for('static', filename='images/back-travler.jpg')}});
+    background-size: cover;
+    background-position: center; */
+}
+.tavor-logo{
+   width:260px;
+   height: 150px;
+   padding-right:25px;
+}
+
+#about-vision {
+  width:95%;
+  height:auto;
+  background-image:url('/wp-content/themes/tavor/images/about-vision.jpg');
+  background-position:center;
+  background-repeat:no-repeat
+}
+
+#about-vision li{
+  min-height:250px;margin-top:130px;margin-left:8%;padding:0 3px 20px;background:rgba(254,254,254,.2);float:right
+}
+
+#about-vision li.one-third{
+  width:25%}
+
+.about-vision-title{
+  margin:25px auto 0 auto;padding-bottom:8px;text-align:center}
+
+.about-vision-title h3{
+  margin-top:15px;font-family:'FbPhilosof';font-size:1.8em}
+
+.about-vision-title .line{
+  width:65px;margin:10px auto 0 auto;border-bottom:3px solid #ffd42d}
+
+.about-vision-content{
+  padding-top:8px;font-size:.93em;line-height:1.2em;text-align:center}
+
+#about-media{
+  background:#ddd}
+
+#about-media
+.section-title{
+  padding:50px 0 0;color:#808285;font-size:3em;font-weight:700;text-align:center}
+
+.about-media{
+  padding-bottom:50px}
+
+.about-media li{
+    margin:20px 5% 0 2%;
+    float:right}
+
+.about-media li.last-child{
+  margin-left:0}.about-media li.one-forth{width:253.7px}
+
+.about-media-title{
+  width:97%;margin:0 auto;padding:45px 0;background:#a8d8eb;text-align:center}
+
+.about-media-title:hover{
+  background:#ccc}
+
+@media only screen and (max-width:550px)
+#about-vision {
+  width:100%;
+  height:auto;
+  margin-top:40px;
+  background-image:url('/wp-content/themes/tavor/images/about-vision-m.jpg');
+  background-position:center;background-repeat:no-repeat
+}
+
+#about-vision li{
+  min-height:190px;
+  margin:1% 1% 5% 0;
+  padding:1% 0;
+  background:rgba(254,254,254,.4);
+  float:none
+}
+#about-vision li.one-third{width:95%}
+.about-vision{width:100%}
+.about-vision-title{margin:15px auto 0 auto}
+.about-vision-title h3{font-size:1.2em}
+.about-vision-title img{
+width:15%;
+height:auto
+}
+.about-vision-content{
+  padding:8px 5px
+}
+.about-media{width:100%;margin:0 auto}
+.about-media li{margin:20px auto 0 auto;float:none}
+.about-media li.last-child{margin-left:auto}
