@@ -1,6 +1,8 @@
 # Minibus Social Network
 
-Welcome to the Minibus Social Network repository! This repository contains the source code for a website designed to connect the alumni of the "Minibus" program based on common interests. This README.md file will provide you with an overview of the project and guide you on how to get started.
+Welcome to the Minibus Social Network repository! This repository contains the source code for a mobile-first website designed to connect the alumni of the "Minibus" program based on common interests. This README.md file will provide you with an overview of the project and guide you on how to get started.
+
+<img src="media/3.jpg" width="270">
 
 ## Table of Contents
 
@@ -12,7 +14,7 @@ Welcome to the Minibus Social Network repository! This repository contains the s
 
 ## Overview
 
-The Minibus Social Network is a website that aims to facilitate connections among graduates of the "Minibus" program. It provides a platform where alumni can connect with each other based on their shared interests. The website offers various features such as user profiles, search functionality, and a messaging system to enhance the networking experience.
+The Minibus Social Network is a mobile-first website that aims to facilitate connections among graduates of the "Minibus" program. It provides a platform where alumni can connect with each other based on their shared interests. The website offers various features such as user profiles, search functionality, and a messaging system to enhance the networking experience.
 
 ## Getting Started
 
@@ -32,12 +34,11 @@ The Minibus Social Network offers the following key features:
 2. Search Functionality: Users can search for other alumni based on common interests or specific criteria.
 3. Connectivity:Users can send messages to one another through whatsApp or SMS by 1 click from a link in the profile.
 4. Authentication and Authorization: The website provides secure user authentication and authorization mechanisms.
-5. Responsive Design: The website is designed to be responsive, ensuring a seamless experience across different devices.
-
+5. Responsive Design: The web-app is designed to be responsive, ensuring a seamless experience across different devices.
 
 ## Screenshots
-
-<!-- Add screenshots of your website here. -->
+<img src="media/1.jpg" width="270"> <img src="media/2.jpg" width="270">
+<img src="media/3.jpg" width="270">
 
 ## License
 
